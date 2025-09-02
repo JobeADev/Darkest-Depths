@@ -1,0 +1,33 @@
+.loader-container {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  padding: 15px;
+}
+
+.fa-spinner {
+  color: var(--spinner);
+}
+
+.loader {
+  font-size: 45px;
+}
+
+@media screen and (max-width: 1200px) {
+  .loader {
+    font-size: 50px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .loader {
+    font-size: 60px;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .loader {
+    font-size: 45px;
+  }
+}

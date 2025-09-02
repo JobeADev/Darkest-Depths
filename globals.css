@@ -1,0 +1,37 @@
+:root {
+  --primary: rgb(107, 107, 107);
+  --secondary: white;
+  --ally-color: #28a0f8;
+  --enemy-color: #e01010;
+  --active-item-text-color: rgb(0, 160, 0);
+  --hover: rgb(160, 160, 160);
+  /* --hover: rgb(96, 119, 252); */
+  --border: black;
+  --title-bg: rgb(255, 255, 255, 0.6);
+  --inline-color: black;
+  --disabled: rgb(150, 150, 150);
+  --spinner: black;
+  /* --link-press: rgb(175, 50, 175);
+  --btn-press: rgb(143, 35, 143); */
+  --font: "Blacknorth";
+  --text-shadow: 1px 1px 5px var(--border);
+  --shadow: 0px 1px 7px 0px var(--border);
+  --one-side-shadow: 0px 7px 8px -8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Blacknorth";
+  /* color: var(--secondary); */
+}
+
+@font-face {
+  font-family: "Blacknorth";
+  src: url("src/fonts/Blacknorthdemo-mLE25.otf");
+}
+
+a {
+  text-decoration: none;
+}

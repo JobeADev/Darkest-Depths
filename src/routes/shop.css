@@ -1,0 +1,225 @@
+:root {
+  --screen-width: 71.3%;
+  --gold-count-text: yellow;
+  /* --shop-active-item-text: rgb(9, 180, 9); */
+}
+
+.shop {
+  contain: content;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: end;
+  align-items: center;
+  background-image: url(../../Lunar-bg-02.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  width: var(--screen-width);
+}
+
+.shop-screen-link-container {
+  position: absolute;
+  top: 50%;
+  /* transform: translateY(-50%); */
+  right: 15px;
+}
+
+.current-gold {
+  font-size: 42px;
+  position: absolute;
+  top: 50px;
+  left: 40px;
+  color: var(--gold-count-text);
+  background-color: var(--title-bg);
+  border-radius: 10px;
+  text-shadow: 0px 0px 5px var(--border);
+  padding: 0px 12px 3px 5px;
+}
+
+.shop-gold-bag {
+  display: inline-block;
+  position: relative;
+  background-size: contain;
+  height: 48px;
+  width: 48px;
+  top: 6px;
+}
+
+.shop-gold-bag-small {
+  display: inline-block;
+  position: relative;
+  background-size: contain;
+  height: 32px;
+  width: 32px;
+  top: 5px;
+}
+
+.gold-text-coloring {
+  font-size: 28px;
+  color: var(--gold-count-text);
+  text-shadow: 0px 0px 5px var(--border);
+  /* justify-self: center; */
+}
+
+.healing-section-container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 25px;
+  right: 20px;
+}
+
+.healing-section,
+.health-increase-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.healing-section {
+  margin-right: 50px;
+}
+
+.health-increase-section-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.healing-section.disabled,
+.health-increase-section.disabled {
+  cursor: initial;
+  opacity: 0.5;
+}
+
+.healing-section-text {
+  font-size: 26px;
+  color: var(--secondary);
+  text-shadow: 0px 0px 5px var(--border);
+}
+
+.healing-section-hp {
+  color: var(--ally-color);
+  background-color: var(--title-bg);
+  text-shadow: 0px 0px 1px var(--border);
+  font-size: 20px;
+  padding: 5px 6px 0px 6px;
+  margin-top: 4px;
+  border-radius: 10px;
+  width: fit-content;
+}
+
+.shop-rug-container {
+  position: relative;
+}
+
+.shop-rug {
+  background-image: url(../../Rug-xl-png.png);
+  background-size: cover;
+  width: 650px;
+  height: 304px;
+  transform: perspective(10em) rotateX(19deg);
+  margin-bottom: 80px;
+}
+
+.shop-items {
+  display: flex;
+  /* grid-template-columns: repeat(2, auto); */
+  column-gap: 55px;
+  /* row-gap: 20px; */
+  position: absolute;
+  top: 25%;
+  /* transform: translateY(-25%); */
+  left: 11%;
+}
+
+.shop-item-container {
+  width: 80px;
+}
+
+.shop-item:hover ~ .shop-item-description {
+  opacity: 1;
+}
+
+.shop-item {
+  cursor: pointer;
+  background-size: cover;
+  height: 80px;
+  width: 80px;
+}
+
+.shop-item-description {
+  transition: 0.2s;
+  opacity: 0;
+  font-size: 16px;
+  color: var(--secondary);
+  text-shadow: 0px 0px 5px var(--border);
+  white-space: nowrap;
+}
+
+.shop-item-description-name {
+  font-size: 18px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.shop-active-item-text {
+  /* background-color: rgb(255, 255, 255, 0.2);
+  padding: 6px 4px 0px 4px; */
+  color: var(--active-item-text-color);
+  text-shadow: 0px 0px 5px var(--secondary);
+}
+
+.shop-item-icon {
+  display: inline-block;
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-size: contain;
+  margin-left: 3px;
+  top: 4px;
+}
+
+.icon-bg {
+  position: relative;
+  background-color: rgb(0, 0, 0, 0.15);
+  padding: 4px 4px 3px 1px;
+  border-radius: 20px;
+  bottom: 2px;
+  margin-left: 2px;
+}
+
+.shop-active-item-strong-against {
+  margin-top: -2px;
+}
+
+.shop-item-blank {
+  height: 80px;
+  width: 80px;
+}
+
+.nobles-sword-shop {
+  background-image: url(../../Nobles-Sword-Gif-3fps.gif);
+}
+
+.radiant-sword-shop {
+  background-image: url(../../Radiant-Sword-Gif-3fps.gif);
+}
+
+.flame-kissed-sword-shop {
+  background-image: url(../../Flame-Kissed-Sword-Gif-3fps.gif);
+}
+
+.revival-pendant-shop {
+  background-image: url(../../Revival-Pendant-Gif-3fps.gif);
+}
+
+.healing-icon {
+  background-image: url(../../Healing-Icon.png);
+  background-size: cover;
+  height: 80px;
+  width: 80px;
+}

@@ -1,0 +1,776 @@
+:root {
+  --screen-width: 71.3%;
+  --turn-tracker-bg: rgb(255, 255, 255, 0.5);
+  --hp-color: blue;
+  --hp-critical-color: red;
+  --hp-bg-color: rgb(255, 255, 255, 0.4);
+  --debuff-color: rgb(190, 57, 47);
+  --caret-down-color: yellow;
+}
+
+/* animations */
+@keyframes playerShake {
+  0% {
+    margin-left: 28px;
+    opacity: 1;
+  }
+  100% {
+    margin-left: -28px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes leftShake {
+  0% {
+    margin-left: 14px;
+    opacity: 1;
+  }
+  100% {
+    margin-left: -14px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes rightShake {
+  0% {
+    margin-right: 14px;
+    opacity: 1;
+  }
+  100% {
+    margin-right: -14px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes middleEnemyShake {
+  0% {
+    margin-right: 28px;
+    opacity: 1;
+  }
+  100% {
+    margin-right: -28px;
+    opacity: 0.8;
+  }
+}
+
+@keyframes grow {
+  0% {
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes HPFade {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes playerFadeOut {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes runAway {
+  0% {
+    margin-bottom: 50px;
+  }
+  20% {
+    margin-bottom: 0px;
+  }
+  30% {
+    transform: scaleX(-1);
+    right: 0;
+  }
+  45% {
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(-1);
+    opacity: 0;
+    right: 38%;
+  }
+}
+
+.stage-container,
+.stage,
+.combat-area,
+.first,
+.second,
+.third,
+.playerChar-container,
+.inventory-container,
+.inventory,
+.active-items,
+.enemy-info-container {
+  display: flex;
+}
+
+.stage-container {
+  position: relative;
+  justify-content: center;
+  width: 100%;
+  background-color: var(--inline-color);
+  height: 800px;
+}
+
+.turn-tracker {
+  z-index: 1;
+  position: absolute;
+  top: 20px;
+  background-color: var(--turn-tracker-bg);
+  padding: 10px 10px 0px 8px;
+  border-radius: 30px;
+}
+
+.player-turn {
+  color: var(--ally-color);
+}
+
+.enemy-turn {
+  color: var(--enemy-color);
+}
+
+.escape-btn {
+  z-index: 1;
+  position: absolute;
+  bottom: 310px;
+  padding: 4px 4px 2px 4px;
+  border-radius: 5px;
+}
+
+.toggle-info-btns {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: -116px;
+  top: 20px;
+}
+
+.toggle-info-btn {
+  padding: 4px 4px 2px 4px;
+  border-radius: 5px;
+  background-color: var(--ally-color);
+  margin-bottom: 7px;
+}
+
+.toggle-info-btn:last-of-type {
+  margin: 0;
+}
+
+.toggle-info-btn.clicked {
+  background-color: var(--enemy-color);
+}
+
+.stage {
+  position: relative;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  background-image: url(../../battle-background-5.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: var(--screen-width);
+}
+
+.combat-area {
+  margin-bottom: 175px;
+  width: 62%;
+  justify-content: space-between;
+}
+
+.playerChar-container {
+  position: relative;
+  width: 220px;
+  justify-content: center;
+}
+
+.playerChar {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-image: url(../../Knight-with-pause-4fps.gif);
+  height: 160px;
+  width: 160px;
+  align-self: center;
+  margin-bottom: 30px;
+}
+
+.enemyChar {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  background-position: bottom;
+  height: 110px;
+  width: 160px;
+  cursor: pointer;
+  margin-bottom: -15px;
+}
+
+.dead .enemyChar {
+  cursor: default;
+}
+
+.enemies {
+  width: 55%;
+}
+
+.first,
+.second,
+.third {
+  width: 100%;
+}
+
+.first {
+  justify-content: start;
+}
+
+.second {
+  justify-content: center;
+}
+
+.third {
+  justify-content: end;
+}
+
+.enemyChar .fa-caret-down {
+  display: none;
+}
+
+.enemyChar:hover {
+  opacity: 0.8;
+}
+
+.enemyChar:hover .fa-caret-down {
+  font-size: 22px;
+  display: initial;
+  position: absolute;
+  color: var(--caret-down-color);
+  opacity: 0.7;
+  top: -15px;
+  /* left: 72px; */
+}
+
+.damage-preview {
+  color: var(--hp-critical-color);
+  display: none;
+}
+
+.enemyChar:hover .damage-preview {
+  display: initial;
+}
+
+.playerHP,
+.enemyHP {
+  position: absolute;
+  color: var(--hp-color);
+  bottom: -25px;
+  /* text-shadow: 0px 0px 3px white; */
+  background-color: var(--hp-bg-color);
+  padding: 4px 7px 0px 5px;
+  border-radius: 30px;
+  user-select: none;
+}
+
+.player-status-section,
+.enemy-status-section {
+  display: flex;
+  position: absolute;
+  bottom: -45px;
+}
+
+/* .playerHP.run-away {
+  display: none;
+} */
+
+.run-away {
+  display: none;
+  /* animation: fadeOut 0.8s 1 forwards; */
+}
+
+.status-spacer {
+  margin-right: 5px;
+}
+
+.buffed-info {
+  font-size: 14px;
+  color: var(--active-item-text-color);
+}
+
+.deBuffed-info {
+  font-size: 14px;
+  color: var(--debuff-color);
+}
+
+.blankSpace {
+  opacity: 0;
+  height: 95px;
+  width: 160px;
+}
+
+.inventory-container,
+.enemy-info-container {
+  position: absolute;
+  flex-direction: column;
+}
+
+.inventory-container {
+  width: 702px;
+  left: 14.35%;
+  bottom: 52px;
+}
+
+.enemy-info-container {
+  width: 19%;
+  right: 21.6%;
+  bottom: 22px;
+  border: solid 3px var(--primary);
+  border-radius: 5px;
+  opacity: 0.9;
+}
+
+.active-items {
+  width: 281px;
+  margin-bottom: 40px;
+  margin-left: 6px;
+}
+
+.active-items,
+.inventory {
+  position: relative;
+}
+
+.active-item {
+  height: 70px;
+  width: 70px;
+  background-size: contain;
+  border: solid 3px var(--primary);
+  border-radius: 5px;
+  margin-left: 15px;
+}
+
+.active-item-portrait-area {
+  position: relative;
+  height: 100%;
+}
+
+.active-item:first-of-type {
+  margin: 0;
+}
+
+.active-item-text {
+  color: var(--active-item-text-color);
+}
+
+.active-item-name,
+.active-item-damage,
+.active-item-strong-against,
+.active-item-effect,
+.active-item-durability {
+  display: none;
+  color: var(--secondary);
+  text-shadow: var(--text-shadow);
+  font-size: 0.95em;
+  user-select: none;
+}
+
+.active-item:hover .active-item-name,
+.inventory-item:hover .active-item-name,
+.active-item:hover .active-item-damage,
+.active-item:hover .active-item-effect,
+.active-item:hover .active-item-durability,
+.active-item:hover .active-item-strong-against {
+  display: initial;
+}
+
+.active-item-damage,
+.active-item-strong-against {
+  position: absolute;
+  left: 0;
+}
+
+.active-item-effect,
+.active-item-durability {
+  position: absolute;
+  left: 5.6em;
+}
+
+.active-item-damage,
+.active-item-effect {
+  bottom: -1.1em;
+}
+
+.active-item-effect.xl {
+  bottom: -2.1em;
+}
+
+.active-item-durability {
+  bottom: -2.15em;
+}
+
+.active-item-durability.xl {
+  bottom: -3.15em;
+}
+
+.active-item-strong-against {
+  font-size: 16px;
+  bottom: -2.2em;
+}
+
+.font-change {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.inventory {
+  border: solid 2px var(--primary);
+  padding: 1px;
+  flex-wrap: wrap;
+  /* height: 122px; */
+}
+
+.inventory-title {
+  /* contain: content; */
+  position: relative;
+  color: var(--secondary);
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.gold-amount-text {
+  position: absolute;
+  color: var(--caret-down-color);
+  font-size: 20px;
+  margin-bottom: -2px;
+  left: 0;
+  bottom: 0;
+}
+
+.inventory-item {
+  height: 58px;
+  width: 58px;
+  background-size: contain;
+}
+
+.inventory-item.disabled {
+  opacity: 0.3;
+}
+
+.inventory-item.disabled:hover {
+  cursor: initial;
+}
+
+.inventory-item:hover {
+  cursor: pointer;
+}
+
+.enemy-info-title,
+.enemy-info {
+  text-align: center;
+  padding: 10px 0px 6px 0px;
+  color: var(--secondary);
+}
+
+.enemy-info-title {
+  align-self: center;
+  width: 90%;
+  /* color: var(--enemy-color); */
+  padding-top: 14px;
+  padding-bottom: 6px;
+  font-size: 1.8em;
+  border-bottom: dotted 3px var(--primary);
+}
+
+.enemy-info {
+  font-size: 1.1em;
+  position: relative;
+}
+
+.enemy-info.class-text {
+  padding-top: 1px;
+}
+
+.enemy-info:first-of-type {
+  margin-top: 4px;
+  padding-top: 2px;
+}
+
+.enemy-info:last-of-type {
+  margin-bottom: 4px;
+}
+
+.enemy-info-text,
+.active-item-text {
+  padding-left: 3px;
+}
+
+.enemy-info-text-space {
+  padding: 0px 5px;
+}
+
+.type-icon {
+  display: inline-block;
+  position: absolute;
+  height: 18px;
+  width: 18px;
+  background-size: contain;
+  margin-left: 4px;
+  top: 0px;
+}
+
+.weakness-icon {
+  display: none;
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  bottom: 2px;
+  right: 2px;
+}
+
+.active-item:hover .weakness-icon {
+  display: inline-block;
+}
+
+.other-icon-inventory {
+  display: inline-block;
+  position: relative;
+  /* position: absolute; */
+  height: 24px;
+  width: 24px;
+  background-size: contain;
+  /* margin-left: 4px; */
+  top: 4px;
+}
+
+.type-icon-info {
+  display: inline-block;
+  position: relative;
+  height: 22px;
+  width: 22px;
+  background-size: contain;
+  margin-left: 4.5px;
+  top: 5px;
+}
+
+.weakness-icon-info {
+  display: inline-block;
+  position: relative;
+  height: 18px;
+  width: 18px;
+  background-size: contain;
+  margin-left: 4.5px;
+  top: 3px;
+}
+
+.icon16x16 {
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+}
+
+.icon16x16.poison {
+  display: inline-block;
+  position: relative;
+  top: 3px;
+}
+
+/* animation classes */
+.player-dead {
+  animation: playerFadeOut 2.2s 1.1s 1 forwards;
+}
+
+.dead {
+  animation: fadeOut 1s 0.9s 1 forwards;
+}
+
+.current-player-hp.low {
+  color: var(--hp-critical-color);
+  animation: HPFade 1s infinite alternate;
+}
+
+.isAttacking {
+  animation: grow 0.45s 2 alternate;
+}
+
+.playerChar.beingDamaged {
+  animation: playerShake 0.25s 4 alternate;
+}
+
+.enemyChar.firstEnemy.beingDamaged {
+  animation: leftShake 0.25s 4 alternate;
+}
+
+.enemyChar.secondEnemy.beingDamaged {
+  animation: middleEnemyShake 0.25s 4 alternate;
+}
+
+.enemyChar.beingDamaged {
+  animation: rightShake 0.25s 4 alternate;
+}
+
+.player-run-away {
+  animation: runAway 2s 1 forwards;
+  /* animation: runAway 2s 1s 1 forwards; */
+}
+
+/* enemy images */
+.zombie {
+  background-image: url(../../Zombie-with-pause-4fps.gif);
+}
+
+.spider {
+  background-image: url(../../Spider-with-pause-4fps.gif);
+}
+
+.draugr {
+  background-image: url(../../Draugr-with-pause-4fps.gif);
+}
+
+.elder-spider {
+  background-image: url(../../Elder-Spider-with-pause-4fps.gif);
+}
+
+.zombie-shaman {
+  background-image: url(../../Zombie-Shaman-with-pause-4fps.gif);
+}
+
+/* weapon/item images */
+.dull-sword {
+  background-image: url(../../Dull-Sword-PNG.png);
+}
+
+.nobles-sword {
+  background-image: url(../../Nobles-Sword-PNG.png);
+}
+
+.radiant-sword {
+  background-image: url(../../Radiant-Sword-PNG.png);
+}
+
+.flame-kissed-sword {
+  background-image: url(../../Flame-Kissed-Sword-PNG.png);
+}
+
+.revival-pendant {
+  background-image: url(../../Revival-Pendant-PNG.png);
+}
+
+/* info icons */
+.undead {
+  background-image: url(../../Undead-Icon-16x16.png);
+}
+
+.beast {
+  background-image: url(../../Beast-Icon-16x16.png);
+}
+
+.holy {
+  background-image: url(../../Holy-Icon-16x16.png);
+}
+
+.fire {
+  background-image: url(../../Fire-Icon-16x16.png);
+}
+
+.attacker {
+  background-image: url(../../Attacker-Icon-16x16.png);
+}
+
+.tank {
+  background-image: url(../../Tank-Icon-16x16.png);
+}
+
+.support {
+  background-image: url(../../Support-Icon-16x16.png);
+}
+
+/* other icons */
+.gold-bag {
+  background-image: url(../../Gold-Bag-Icon.png);
+}
+
+.tank-shield {
+  background-image: url(../../Shield-Icon-16x16.png);
+}
+
+.poison {
+  background-image: url(../../Poison-Icon-16x16.png);
+}
+
+.bleed {
+  background-image: url(../../Bleed-Icon-16x16.png);
+}
+
+.halo {
+  background-image: url(../../Halo-40x40.png);
+  background-size: contain;
+  position: absolute;
+  top: 22px;
+  height: 40px;
+  width: 40px;
+  opacity: 0.25;
+}
+
+@media screen and (max-width: 1600px) {
+  .combat-area {
+    margin-bottom: 200px;
+    width: 100%;
+  }
+
+  .enemies {
+    width: 62%;
+  }
+
+  .active-items {
+    /* width: 60%; */
+    margin-bottom: 50px;
+    /* margin-left: 6px; */
+  }
+
+  .inventory-container {
+    width: 41.5%;
+    bottom: 13px;
+  }
+
+  .enemy-info-container {
+    width: 28%;
+    right: 14.2%;
+    /* bottom previously 52px */
+    bottom: 33px;
+  }
+
+  .inventory {
+    height: 122px;
+  }
+}

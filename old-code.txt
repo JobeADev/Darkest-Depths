@@ -1,0 +1,447 @@
+    // else if (
+    //   enemyCurrentHP1 > 0 &&
+    //   enemyCurrentHP2 > 0 &&
+    //   enemyCurrentHP3 <= 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([true, false, false]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[0].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           hasRevived = true;
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //           canRevive = false;
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[0].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsEnemyAttacking([false, true, false]);
+    //         playerCurrentHP = playerCurrentHP - enemiesArray[1].damage;
+    //         if (playerCurrentHP <= 0) {
+    //           if (canRevive) {
+    //             playerCurrentHP = 10;
+    //             setPlayerHP(10);
+    //             setEquipment([equipment[0], {}]);
+    //             const filteredInventory = character[2].filter(
+    //               (i) => i.name != "Revival Pendant",
+    //             );
+    //             setCharacter([character[0], character[1], filteredInventory]);
+    //             canRevive = false;
+    //           } else {
+    //             notFirst = true;
+    //             setPlayerHP(0);
+    //           }
+    //         } else {
+    //           setPlayerHP((previousHP) => previousHP - enemiesArray[1].damage);
+    //         }
+    //       }
+    //     }, 2900),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 3800),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !notFirst) {
+    //         hasDied = true;
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !hasDied) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 6000);
+    // } else if (
+    //   enemyCurrentHP1 <= 0 &&
+    //   enemyCurrentHP2 > 0 &&
+    //   enemyCurrentHP3 > 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([false, true, false]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[1].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           hasRevived = true;
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //           canRevive = false;
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[1].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsEnemyAttacking([false, false, true]);
+    //         playerCurrentHP = playerCurrentHP - enemiesArray[2].damage;
+    //         if (playerCurrentHP <= 0) {
+    //           if (canRevive) {
+    //             playerCurrentHP = 10;
+    //             setPlayerHP(10);
+    //             setEquipment([equipment[0], {}]);
+    //             const filteredInventory = character[2].filter(
+    //               (i) => i.name != "Revival Pendant",
+    //             );
+    //             setCharacter([character[0], character[1], filteredInventory]);
+    //             canRevive = false;
+    //           } else {
+    //             notFirst = true;
+    //             setPlayerHP(0);
+    //           }
+    //         } else {
+    //           setPlayerHP((previousHP) => previousHP - enemiesArray[2].damage);
+    //         }
+    //       }
+    //     }, 2900),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 3800),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !notFirst) {
+    //         hasDied = true;
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !hasDied) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 6000);
+    // } else if (
+    //   enemyCurrentHP1 > 0 &&
+    //   enemyCurrentHP2 <= 0 &&
+    //   enemyCurrentHP3 > 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([true, false, false]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[0].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           hasRevived = true;
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //           canRevive = false;
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[0].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsEnemyAttacking([false, false, true]);
+    //         playerCurrentHP = playerCurrentHP - enemiesArray[2].damage;
+    //         if (playerCurrentHP <= 0) {
+    //           if (canRevive) {
+    //             playerCurrentHP = 10;
+    //             setPlayerHP(10);
+    //             setEquipment([equipment[0], {}]);
+    //             const filteredInventory = character[2].filter(
+    //               (i) => i.name != "Revival Pendant",
+    //             );
+    //             setCharacter([character[0], character[1], filteredInventory]);
+    //             canRevive = false;
+    //           } else {
+    //             notFirst = true;
+    //             setPlayerHP(0);
+    //           }
+    //         } else {
+    //           setPlayerHP((previousHP) => previousHP - enemiesArray[2].damage);
+    //         }
+    //       }
+    //     }, 2900),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0 && !hasRevived) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 3800),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !notFirst) {
+    //         hasDied = true;
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0 && !hasDied) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 6000);
+    // } 
+
+    
+    // else if (
+    //   enemyCurrentHP1 > 0 &&
+    //   enemyCurrentHP2 <= 0 &&
+    //   enemyCurrentHP3 <= 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([true, false, false]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[0].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[0].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400);
+    // } else if (
+    //   enemyCurrentHP1 <= 0 &&
+    //   enemyCurrentHP2 > 0 &&
+    //   enemyCurrentHP3 <= 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([false, true, false]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[1].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[1].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400);
+    // } else if (
+    //   enemyCurrentHP1 <= 0 &&
+    //   enemyCurrentHP2 <= 0 &&
+    //   enemyCurrentHP3 > 0
+    // ) {
+    //   setTimeout(() => {
+    //     setIsPlayersTurn(false);
+    //   }, 890),
+    //     setTimeout(() => {
+    //       setIsEnemyAttacking([false, false, true]);
+    //       playerCurrentHP = playerCurrentHP - enemiesArray[2].damage;
+    //       if (playerCurrentHP <= 0) {
+    //         if (canRevive) {
+    //           playerCurrentHP = 10;
+    //           setPlayerHP(10);
+    //           setEquipment([equipment[0], {}]);
+    //           const filteredInventory = character[2].filter(
+    //             (i) => i.name != "Revival Pendant",
+    //           );
+    //           setCharacter([character[0], character[1], filteredInventory]);
+    //         } else {
+    //           setPlayerHP(0);
+    //         }
+    //       } else {
+    //         setPlayerHP((previousHP) => previousHP - enemiesArray[2].damage);
+    //       }
+    //     }, 1400),
+    //     setTimeout(() => {
+    //       resetEnemyAttacking();
+    //       if (playerCurrentHP > 0) {
+    //         setIsPlayersTurn(true);
+    //         setCanAct(true);
+    //       }
+    //     }, 2300),
+    //     setTimeout(() => {
+    //       if (playerCurrentHP <= 0) {
+    //         navigate({ to: "/gameOverScreen" });
+    //       }
+    //     }, 4400);
+    // }
+
+    else if (
+            enemiesArray[enemyTurnOrder.current[0]].combatStyle === "support"
+          ) {
+            if (
+              enemyCurrentHP[enemyTurnOrder.current[1]] <
+                enemiesArray[enemyTurnOrder.current[1]].hp ||
+              enemyCurrentHP[enemyTurnOrder.current[2]] <
+                enemiesArray[enemyTurnOrder.current[2]].hp
+            ) {
+              if (
+                enemiesArray[enemyTurnOrder.current[1]].hp -
+                  enemyCurrentHP[enemyTurnOrder.current[1]] >
+                enemiesArray[enemyTurnOrder.current[2]].hp -
+                  enemyCurrentHP[enemyTurnOrder.current[2]]
+              ) {
+                handleHeal(enemyTurnOrder.current[0], 1, enemyCurrentHP);
+              } else if (
+                enemiesArray[enemyTurnOrder.current[1]].hp -
+                  enemyCurrentHP[enemyTurnOrder.current[1]] ===
+                enemiesArray[enemyTurnOrder.current[2]].hp -
+                  enemyCurrentHP[enemyTurnOrder.current[2]]
+              ) {
+                const selector = Math.floor(Math.random() * 2);
+                if (selector === 0) {
+                  handleHeal(enemyTurnOrder.current[0], 1, enemyCurrentHP);
+                } else {
+                  handleHeal(enemyTurnOrder.current[0], 2, enemyCurrentHP);
+                }
+              } else {
+                handleHeal(enemyTurnOrder.current[0], 2, enemyCurrentHP);
+              }
+            } else {
+              const selector = Math.floor(Math.random() * 2);
+              if (selector === 0) {
+                enemyBuffedDamage.current = [
+                  enemyBuffedDamage.current[0],
+                  enemyBuffedDamage.current[1] + enemiesArray[0].buff,
+                  enemyBuffedDamage.current[2],
+                ];
+              } else {
+                enemyBuffedDamage.current = [
+                  enemyBuffedDamage.current[0],
+                  enemyBuffedDamage.current[1],
+                  enemyBuffedDamage.current[2] + enemiesArray[0].buff,
+                ];
+              }
+            }
+            setIsEnemySupporting(true);
+          }
+
+          else if (
+            enemiesArray[enemyTurnOrder.current[0]].combatStyle === "support"
+          ) {
+            setIsEnemySupporting(false);
+          }
+
+          else if (enemiesArray[first].combatStyle === "support") {
+            if (enemyCurrentHP[second] < enemiesArray[second].hp) {
+              const sortedArrayOfEnemyHP = [
+                { index: first, hp: enemyCurrentHP[first] },
+                {
+                  index: second,
+                  hp: enemyCurrentHP[second] + enemiesArray[first].heal,
+                },
+                { index: dead, hp: 0 },
+              ].sort((a, b) => a.index - b.index);
+              setEnemyHP([
+                sortedArrayOfEnemyHP[0].hp,
+                sortedArrayOfEnemyHP[1].hp,
+                sortedArrayOfEnemyHP[2].hp,
+              ]);
+            } else {
+              const sortedArrayOfEnemyBuffs = [
+                { index: first, buffNum: enemyBuffedDamage.current[first] },
+                {
+                  index: second,
+                  buffNum:
+                    enemyBuffedDamage.current[second] +
+                    enemiesArray[first].buff,
+                },
+                { index: dead, buffNum: enemyBuffedDamage.current[dead] },
+              ].sort((a, b) => a.index - b.index);
+              enemyBuffedDamage.current = [
+                sortedArrayOfEnemyBuffs[0].buffNum,
+                sortedArrayOfEnemyBuffs[1].buffNum,
+                sortedArrayOfEnemyBuffs[2].buffNum,
+              ];
+            }
+            setIsEnemySupporting(true);
+          }
+
+          else if (enemiesArray[first].combatStyle === "support") {
+            setIsEnemySupporting(false);
+          }

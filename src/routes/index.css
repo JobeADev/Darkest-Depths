@@ -1,0 +1,24 @@
+:root {
+}
+
+body {
+  background-color: var(--border);
+}
+
+.index {
+  height: 84vh;
+  align-content: center;
+}
+
+.start-link-container {
+  max-width: 200px;
+  margin-top: 30px;
+  text-align: center;
+  justify-self: center;
+}
+
+.start-link {
+  padding: 3px;
+  font-size: 35px;
+  color: var(--secondary);
+}

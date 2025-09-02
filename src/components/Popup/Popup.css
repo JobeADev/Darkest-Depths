@@ -1,0 +1,86 @@
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.popup-container {
+  position: absolute;
+  bottom: 10px;
+  justify-self: center;
+  color: var(--border);
+  /* animation-name: fade-in-out;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-direction: forwards; */
+}
+
+.popup-container.popup-error {
+  animation-name: flash;
+  animation-duration: 0.6s;
+  animation-iteration-count: 1;
+  animation-direction: forwards;
+}
+
+.popup {
+  position: relative;
+  text-align: center;
+  align-items: center;
+  background-color: var(--title-bg);
+  border-radius: 20px;
+  min-width: 100px;
+  min-height: 30px;
+  padding: 12px 16px;
+}
+
+.popup-text {
+  font-size: 24px;
+}
+
+/* .popup-btn {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border: none;
+  background: 0;
+  font-size: small;
+} */
+
+/* .popup-btn .fa-xmark {
+  padding: 0;
+} */
+
+@media screen and (max-width: 430px) {
+  .popup-container {
+    bottom: -5px;
+  }
+
+  .popup-container.popup-error {
+    bottom: 12px;
+  }
+
+  .popup-text {
+    font-size: 21px;
+  }
+}

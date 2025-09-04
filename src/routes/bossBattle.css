@@ -1,0 +1,42 @@
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.enemyChar:hover .fa-caret-down.boss-caret {
+  top: -15px;
+  margin-left: 5px;
+}
+
+.being-summoned {
+  opacity: 0;
+  animation: fadeIn 1s 0.5s 1 forwards;
+}
+
+.being-summoned .enemyChar {
+  cursor: default;
+}
+
+.being-summoned .enemyChar:hover .fa-caret-down {
+  display: none;
+}
+
+.necromancer {
+  background-image: url(../../Enemies/Necromancer-with-pause-4fps-192x192.gif);
+}
+
+.wight {
+  background-image: url(../../Enemies/Wight-with-pause-4fps.gif);
+}
+
+.skeleton {
+  background-image: url(../../Enemies/Skeleton-with-pause-4fps.gif);
+}
+
+.boss {
+  background-image: url(../../Icons/Boss-Icon-16x16.png);
+}

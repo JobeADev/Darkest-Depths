@@ -7,6 +7,7 @@ function Player({
   isEA,
   isPA,
   poisonNum,
+  bleedNum,
   hasRevived,
 }) {
   return (
@@ -48,7 +49,19 @@ function Player({
         >
           {poisonNum > 0 ? (
             <div className="deBuffed-info">
-              {poisonNum} <span className="icon16x16 poison" />
+              {poisonNum}{" "}
+              <span
+                className={
+                  bleedNum === 0
+                    ? "icon16x16 poison"
+                    : "status-spacer icon16x16 poison"
+                }
+              />
+            </div>
+          ) : null}
+          {bleedNum > 0 ? (
+            <div className="deBuffed-info">
+              {bleedNum} <span className="icon16x16 bleed" />
             </div>
           ) : null}
         </section>

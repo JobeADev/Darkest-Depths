@@ -45,6 +45,7 @@ function NormalBattle() {
   const [playerHP, setPlayerHP] = useState(character[0].hp);
   const [enemyHP, setEnemyHP] = useState([0, 0, 0]);
   const [poisonDamage, setPoisonDamage] = useState(0);
+  const [bleedDamage, setBleedDamage] = useState(0);
   const enemyTurnOrder = useRef(null);
   const areEnemiesTanks = useRef(null);
   const enemyBuffedDamage = useRef([0, 0, 0]);
@@ -56,6 +57,7 @@ function NormalBattle() {
   const runFailPercent = 24; // this represents 25% to fail, 75% chance for success
   const tankFailPercent = 6; // this represents 70% to fail, 30% chance for success
   const poisonFailPercent = 6; // this represents 70% to fail, 30% chance for success
+  const bleedFailPercent = 6; // this represents 70% to fail, 30% chance for success
 
   // console.log(enemyTurnOrder.current);
   // console.log(enemiesKilled.current);
@@ -73,40 +75,92 @@ function NormalBattle() {
   // console.log(character[2]);
   // console.log(character[3]);
 
-  const getEnemiesList = () => {
+  const getEnemiesList = (num) => {
     if (character[1] <= 4) {
-      return EnemiesList.filter((enemy) => enemy.maxFloor <= 4);
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("early") && enemy.type === "Human",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("early") && enemy.type !== "Human",
+        );
     } else if (character[1] >= 6 && character[1] <= 9) {
-      return EnemiesList.filter(
-        (enemy) => enemy.maxFloor >= 6 && enemy.maxFloor <= 9,
-      );
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("mid") && enemy.type === "Human",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("mid") && enemy.type !== "Human",
+        );
     } else {
-      return EnemiesList;
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("late") && enemy.type === "Human",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) => enemy.floors.includes("late") && enemy.type !== "Human",
+        );
     }
   };
 
-  const getEnemiesListWithoutSupport = () => {
+  const getEnemiesListWithoutSupport = (num) => {
     if (character[1] <= 4) {
-      return EnemiesList.filter(
-        (enemy) => enemy.maxFloor <= 4 && enemy.combatStyle != "support",
-      );
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("early") &&
+            enemy.type === "Human" &&
+            enemy.combatStyle !== "support",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("early") &&
+            enemy.type !== "Human" &&
+            enemy.combatStyle !== "support",
+        );
     } else if (character[1] >= 6 && character[1] <= 9) {
-      return EnemiesList.filter(
-        (enemy) =>
-          enemy.maxFloor >= 6 &&
-          enemy.maxFloor <= 9 &&
-          enemy.combatStyle != "support",
-      );
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("mid") &&
+            enemy.type === "Human" &&
+            enemy.combatStyle !== "support",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("mid") &&
+            enemy.type !== "Human" &&
+            enemy.combatStyle !== "support",
+        );
     } else {
-      return EnemiesList.filter((enemy) => enemy.combatStyle != "support");
+      if (num == 0)
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("late") &&
+            enemy.type === "Human" &&
+            enemy.combatStyle !== "support",
+        );
+      else
+        return EnemiesList.filter(
+          (enemy) =>
+            enemy.floors.includes("late") &&
+            enemy.type !== "Human" &&
+            enemy.combatStyle !== "support",
+        );
     }
   };
 
   useEffect(() => {
     let hasSupport = false;
+    const isHuman = Math.floor(Math.random() * 4);
     const initialEnemies = [];
-    const enemiesList = getEnemiesList();
-    const enemiesListWithoutSupport = getEnemiesListWithoutSupport();
+    const enemiesList = getEnemiesList(isHuman);
+    const enemiesListWithoutSupport = getEnemiesListWithoutSupport(isHuman);
     for (let i = 0; i < encounterAmount.current; i++) {
       if (encounterAmount.current === 3) {
         if (hasSupport) {
@@ -569,6 +623,11 @@ function NormalBattle() {
                 if (poisonRoll > poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
+              if (enemiesArray[enemyTurnOrder.current[0]].skill === "Bleed") {
+                const bleedRoll = Math.floor(Math.random() * 10);
+                if (bleedRoll > bleedFailPercent)
+                  setBleedDamage((previousBleedNum) => previousBleedNum + 1);
+              }
               setPlayerHP(
                 (previousHP) =>
                   previousHP -
@@ -578,7 +637,7 @@ function NormalBattle() {
             }
           }
         }
-      }, 1400),
+      }, 500),
         setTimeout(() => {
           if (
             enemiesArray[enemyTurnOrder.current[0]].combatStyle ===
@@ -592,7 +651,7 @@ function NormalBattle() {
             setCanAct(true);
             hasDied = true;
           }
-        }, 2300),
+        }, 1400),
         setTimeout(() => {
           if (playerCurrentHP > 0 && !hasRevived) {
             if (
@@ -634,6 +693,11 @@ function NormalBattle() {
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
                 }
+                if (enemiesArray[enemyTurnOrder.current[1]].skill === "Bleed") {
+                  const bleedRoll = Math.floor(Math.random() * 10);
+                  if (bleedRoll > bleedFailPercent)
+                    setBleedDamage((previousBleedNum) => previousBleedNum + 1);
+                }
                 setPlayerHP(
                   (previousHP) =>
                     previousHP -
@@ -643,7 +707,7 @@ function NormalBattle() {
               }
             }
           }
-        }, 2900),
+        }, 2000),
         setTimeout(() => {
           if (
             enemiesArray[enemyTurnOrder.current[1]].combatStyle ===
@@ -657,7 +721,7 @@ function NormalBattle() {
             setCanAct(true);
             hasDied = true;
           }
-        }, 3800),
+        }, 2900),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
@@ -701,6 +765,11 @@ function NormalBattle() {
                     setPoisonDamage(
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
+                }
+                if (enemiesArray[enemyTurnOrder.current[2]].skill === "Bleed") {
+                  const bleedRoll = Math.floor(Math.random() * 10);
+                  if (bleedRoll > bleedFailPercent)
+                    setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
                   (previousHP) =>
@@ -751,7 +820,7 @@ function NormalBattle() {
               setIsEnemySupporting(true);
             }
           }
-        }, 4400),
+        }, 3500),
         setTimeout(() => {
           if (
             enemiesArray[enemyTurnOrder.current[2]].combatStyle ===
@@ -768,18 +837,18 @@ function NormalBattle() {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
-        }, 5300),
+        }, 4400),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied && !notSecond) {
             hasDied = true;
             navigate({ to: "/gameOverScreen" });
           }
-        }, 6000),
+        }, 5100),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({ to: "/gameOverScreen" });
           }
-        }, 7500);
+        }, 6600);
     } else if (
       (enemyCurrentHP[0] > 0 && enemyCurrentHP[1] > 0) ||
       (enemyCurrentHP[0] > 0 && enemyCurrentHP[2] > 0) ||
@@ -820,6 +889,11 @@ function NormalBattle() {
                 if (poisonRoll > poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
+              if (enemiesArray[first].skill === "Bleed") {
+                const bleedRoll = Math.floor(Math.random() * 10);
+                if (bleedRoll > bleedFailPercent)
+                  setBleedDamage((previousBleedNum) => previousBleedNum + 1);
+              }
               setPlayerHP(
                 (previousHP) =>
                   previousHP -
@@ -829,7 +903,7 @@ function NormalBattle() {
             }
           }
         }
-      }, 1400),
+      }, 500),
         setTimeout(() => {
           if (
             enemiesArray[first].combatStyle === "attacker" ||
@@ -841,7 +915,7 @@ function NormalBattle() {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
-        }, 2300),
+        }, 1400),
         setTimeout(() => {
           if (playerCurrentHP > 0 && !hasRevived) {
             if (
@@ -876,6 +950,11 @@ function NormalBattle() {
                     setPoisonDamage(
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
+                }
+                if (enemiesArray[second].skill === "Bleed") {
+                  const bleedRoll = Math.floor(Math.random() * 10);
+                  if (bleedRoll > bleedFailPercent)
+                    setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
                   (previousHP) =>
@@ -925,7 +1004,7 @@ function NormalBattle() {
               setIsEnemySupporting(true);
             }
           }
-        }, 2900),
+        }, 2000),
         setTimeout(() => {
           if (
             enemiesArray[second].combatStyle === "attacker" ||
@@ -939,18 +1018,18 @@ function NormalBattle() {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
-        }, 3800),
+        }, 2900),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
             navigate({ to: "/gameOverScreen" });
           }
-        }, 4400),
+        }, 3500),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({ to: "/gameOverScreen" });
           }
-        }, 6000);
+        }, 5100);
     } else if (
       enemyCurrentHP[0] > 0 ||
       enemyCurrentHP[1] > 0 ||
@@ -991,6 +1070,11 @@ function NormalBattle() {
                 if (poisonRoll > poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
+              if (enemiesArray[living].skill === "Bleed") {
+                const bleedRoll = Math.floor(Math.random() * 10);
+                if (bleedRoll > bleedFailPercent)
+                  setBleedDamage((previousBleedNum) => previousBleedNum + 1);
+              }
               setPlayerHP(
                 (previousHP) =>
                   previousHP -
@@ -1018,7 +1102,7 @@ function NormalBattle() {
             setIsEnemySupporting(true);
           }
         }
-      }, 1400),
+      }, 500),
         setTimeout(() => {
           if (
             enemiesArray[living].combatStyle === "attacker" ||
@@ -1034,12 +1118,12 @@ function NormalBattle() {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
-        }, 2300),
+        }, 1400),
         setTimeout(() => {
           if (playerCurrentHP <= 0) {
             navigate({ to: "/gameOverScreen" });
           }
-        }, 4400);
+        }, 3500);
     }
   };
 
@@ -1084,7 +1168,6 @@ function NormalBattle() {
     let canRevive = false;
     let hasRevived = false;
     let runAwayCheck = false;
-    let poisonDeathCheck = false;
     setCanAct(false);
 
     if (equipment[1].name) {
@@ -1094,75 +1177,120 @@ function NormalBattle() {
     }
 
     if (number > 0) {
-      if (playerCurrentHP - poisonDamage <= 0) poisonDeathCheck = true;
       enemyCurrentHP = handlePlayerAttack(
         enemyCurrentHP,
         number,
         enemyWeakness,
       );
-      if (poisonDamage > 0) {
-        playerCurrentHP = playerCurrentHP - poisonDamage;
-        // playerTurnTiming = 1100;
-      }
-      timer = setTimeout(() => {
-        resetEnemyAttacked();
-        if (
-          enemyCurrentHP[number - 1] <= 0 &&
-          hoveredEnemy.name === enemiesArray[number - 1].name
-        ) {
-          setHoveredEnemy({});
-        }
-        if (
-          poisonDamage > 0 &&
-          (enemyCurrentHP[0] > 0 ||
-            enemyCurrentHP[1] > 0 ||
-            enemyCurrentHP[2] > 0)
-        ) {
-          if (playerCurrentHP > 0) {
-            setPlayerHP((previousHP) => previousHP - poisonDamage);
-            setIsPlayersTurn(false);
-          } else {
-            if (canRevive) {
-              hasRevived = true;
-              const revivalHp = Math.round(character[0].maxHp * 0.3);
-              playerCurrentHP = revivalHp;
-              setPlayerHP(revivalHp);
-              setEquipment([equipment[0], {}]);
-              const filteredInventory = character[2].filter(
-                (i) => i.name != "Revival Pendant",
-              );
-              setCharacter([character[0], character[1], filteredInventory]);
-              canRevive = false;
-              setHasPlayerRevived(true);
-              setIsPlayersTurn(true);
-              setCanAct(true);
-            } else setPlayerHP(0);
-          }
-          setPoisonDamage((previousPoisonNum) => previousPoisonNum - 1);
-        } else if (
-          enemyCurrentHP[0] > 0 ||
-          enemyCurrentHP[1] > 0 ||
-          enemyCurrentHP[2] > 0
-        )
-          setIsPlayersTurn(false);
-      }, 900);
-      setTimeout(() => {
-        if (playerCurrentHP <= 0) {
-          navigate({ to: "/gameOverScreen" });
-        }
-      }, 3900);
     } else runAwayCheck = handleRunAwayCheck();
     if (
-      !poisonDeathCheck &&
-      !runAwayCheck &&
+      poisonDamage > 0 &&
       (enemyCurrentHP[0] > 0 || enemyCurrentHP[1] > 0 || enemyCurrentHP[2] > 0)
-    )
-      handleEnemyAttacks(
-        playerCurrentHP,
-        enemyCurrentHP,
-        canRevive,
-        hasRevived,
-      );
+    ) {
+      playerCurrentHP = playerCurrentHP - poisonDamage;
+      // playerTurnTiming = 1100;
+    }
+    if (
+      bleedDamage > 0 &&
+      (enemyCurrentHP[0] > 0 || enemyCurrentHP[1] > 0 || enemyCurrentHP[2] > 0)
+    ) {
+      playerCurrentHP = playerCurrentHP - bleedDamage * 2;
+      // playerTurnTiming = 1100;
+    }
+    timer = setTimeout(() => {
+      resetEnemyAttacked();
+      if (
+        enemyCurrentHP[number - 1] <= 0 &&
+        hoveredEnemy.name === enemiesArray[number - 1].name
+      ) {
+        setHoveredEnemy({});
+      }
+      if (
+        poisonDamage > 0 &&
+        (enemyCurrentHP[0] > 0 ||
+          enemyCurrentHP[1] > 0 ||
+          enemyCurrentHP[2] > 0) &&
+        !runAwayCheck
+      ) {
+        if (playerCurrentHP > 0) {
+          setPlayerHP((previousHP) => previousHP - poisonDamage);
+          setIsPlayersTurn(false);
+        } else {
+          if (canRevive) {
+            hasRevived = true;
+            const revivalHp = Math.round(character[0].maxHp * 0.3);
+            playerCurrentHP = revivalHp;
+            setPlayerHP(revivalHp);
+            setEquipment([equipment[0], {}]);
+            const filteredInventory = character[2].filter(
+              (i) => i.name != "Revival Pendant",
+            );
+            setCharacter([character[0], character[1], filteredInventory]);
+            canRevive = false;
+            setHasPlayerRevived(true);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+          } else setPlayerHP(0);
+        }
+        setPoisonDamage((previousPoisonNum) => previousPoisonNum - 1);
+      }
+      if (
+        bleedDamage > 0 &&
+        (enemyCurrentHP[0] > 0 ||
+          enemyCurrentHP[1] > 0 ||
+          enemyCurrentHP[2] > 0) &&
+        !runAwayCheck
+      ) {
+        if (playerCurrentHP > 0) {
+          setPlayerHP((previousHP) => previousHP - bleedDamage * 2);
+          setIsPlayersTurn(false);
+        } else {
+          if (canRevive) {
+            hasRevived = true;
+            const revivalHp = Math.round(character[0].maxHp * 0.3);
+            playerCurrentHP = revivalHp;
+            setPlayerHP(revivalHp);
+            setEquipment([equipment[0], {}]);
+            const filteredInventory = character[2].filter(
+              (i) => i.name != "Revival Pendant",
+            );
+            setCharacter([character[0], character[1], filteredInventory]);
+            canRevive = false;
+            setHasPlayerRevived(true);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+          } else setPlayerHP(0);
+        }
+        setBleedDamage(0);
+      }
+      if (
+        poisonDamage === 0 &&
+        bleedDamage === 0 &&
+        (enemyCurrentHP[0] > 0 ||
+          enemyCurrentHP[1] > 0 ||
+          enemyCurrentHP[2] > 0) &&
+        !runAwayCheck
+      )
+        setIsPlayersTurn(false);
+      if (
+        playerCurrentHP > 0 &&
+        !runAwayCheck &&
+        (enemyCurrentHP[0] > 0 ||
+          enemyCurrentHP[1] > 0 ||
+          enemyCurrentHP[2] > 0)
+      )
+        handleEnemyAttacks(
+          playerCurrentHP,
+          enemyCurrentHP,
+          canRevive,
+          hasRevived,
+        );
+    }, 900);
+    setTimeout(() => {
+      if (playerCurrentHP <= 0) {
+        navigate({ to: "/gameOverScreen" });
+      }
+    }, 3900);
 
     handleBattleOver(enemyCurrentHP, runAwayCheck);
 
@@ -1263,6 +1391,7 @@ function NormalBattle() {
             isEA={isEnemyAttacking}
             isPA={isPlayerAttacking}
             poisonNum={poisonDamage}
+            bleedNum={bleedDamage}
             hasRevived={hasPlayerRevived}
           />
           <section className="enemies">
@@ -1411,8 +1540,7 @@ function NormalBattle() {
             <p className="enemy-info">
               damage:{" "}
               <span className="enemy-info-text">{hoveredEnemy.damage}</span>
-              {hoveredEnemy.combatStyle === "tank" ||
-              hoveredEnemy.class.includes("spider") ? (
+              {hoveredEnemy.skill ? (
                 <>
                   {" "}
                   <span className="enemy-info-text-space">-</span> skill:{" "}

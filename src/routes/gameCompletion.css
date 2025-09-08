@@ -1,0 +1,75 @@
+:root {
+  --completion-sheet-height: 68%;
+  --completion-sheet-width: 40%;
+}
+
+.game-completion-header {
+  color: var(--secondary);
+  text-align: center;
+}
+
+.completion-screen-sheet-container {
+  justify-items: center;
+  justify-self: center;
+  height: var(--completion-sheet-height);
+  width: var(--completion-sheet-width);
+}
+
+.completion-screen-sheet {
+  text-align: center;
+  position: relative;
+  margin-top: 80px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--sheet-color);
+  border: solid 4px var(--sheet-trim);
+  border-radius: 20px;
+}
+
+.stat-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.stat-section:last-of-type {
+  margin-top: 50px;
+}
+
+.stat-section .inventory {
+  border: none;
+}
+
+.stat-title {
+  color: var(--secondary);
+  font-size: 28px;
+}
+
+.stat-section:first-of-type .stat-title {
+  margin-top: 10px;
+}
+
+.stat-section-inventory {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.completion-gold-icon {
+  display: inline-block;
+  position: relative;
+  height: 34px;
+  width: 34px;
+  background-size: contain;
+  top: 6px;
+}
+
+.completion-screen-link {
+  white-space: nowrap;
+  padding: 8px 14px 0px 14px;
+  font-size: 35px;
+  color: var(--secondary);
+  background-color: var(--title-bg);
+  border-radius: 20px;
+}

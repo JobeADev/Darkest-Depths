@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Outlet, createRootRoute } from "@tanstack/react-router";
-import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
+// import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ScrollToTop from "../components/scrollToTop";
 import NavBar from "../components/NavBar/NavBar";
@@ -8,6 +8,7 @@ import Footer from "../components/Footer/Footer";
 import { CharacterContext, EquipmentContext } from "../components/contexts";
 import {
   StartingCharacterStats,
+  StartingStatTotals,
   StartingItems,
   StartingEquipment,
   StartingShopInventory,
@@ -23,6 +24,7 @@ function RootComponent() {
     0,
     StartingItems,
     StartingShopInventory,
+    StartingStatTotals,
   ]);
   const equipmentHook = useState(StartingEquipment);
 
@@ -36,7 +38,7 @@ function RootComponent() {
           <Footer />
         </EquipmentContext>
       </CharacterContext>
-      <TanStackRouterDevtools />
+      {/* <TanStackRouterDevtools /> */}
       <ReactQueryDevtools />
     </>
   );

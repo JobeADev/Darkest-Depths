@@ -44,9 +44,11 @@ export default function NavBar() {
           </Link>
         </div> */}
         {/* <header className="floor-title-container"> */}
-        <h1 className="floor-title">
-          {character[1] > 0 ? `floor ${character[1]}` : "darkest depths"}
-        </h1>
+        {character[1] < 16 ? (
+          <h1 className="floor-title">
+            {character[1] > 0 ? `floor ${character[1]}` : "darkest depths"}
+          </h1>
+        ) : null}
         {/* </header> */}
         {character[1] > 0 ? (
           <section className="progress-bar-container">

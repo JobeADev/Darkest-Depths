@@ -149,6 +149,7 @@
 }
 
 .pre-boss-icons {
+  display: flex;
   position: absolute;
   top: 25%;
   left: 22.5%;
@@ -232,6 +233,15 @@
   .nav-bar-container.show.width-change,
   .nav-bar-container.hide.width-change {
     width: 19.3rem;
+  }
+
+  .progress-bar-container {
+    width: 82%;
+    height: 38px;
+  }
+
+  .pre-boss-icons {
+    left: 17%;
   }
 
   .menu {

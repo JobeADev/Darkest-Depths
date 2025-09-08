@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CharacterContext, EquipmentContext } from "../components/contexts";
 import {
   StartingCharacterStats,
+  StartingStatTotals,
   StartingItems,
   StartingEquipment,
   StartingShopInventory,
@@ -24,6 +25,7 @@ function Index() {
       1,
       StartingItems,
       StartingShopInventory,
+      StartingStatTotals,
     ]);
     setEquipment(StartingEquipment);
   };
@@ -32,7 +34,13 @@ function Index() {
     <div className="index">
       <header className="">
         <h1 className="start-link-container" onClick={handleClick}>
-          <Link to="/normalBattle" className="start-link">
+          <Link
+            to="/normalBattle"
+            mask={{
+              to: "/floor_1",
+            }}
+            className="start-link"
+          >
             new game
           </Link>
         </h1>

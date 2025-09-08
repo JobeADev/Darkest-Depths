@@ -4,6 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CharacterContext, EquipmentContext } from "../components/contexts";
 import {
   StartingCharacterStats,
+  StartingStatTotals,
   StartingItems,
   StartingEquipment,
   StartingShopInventory,
@@ -14,7 +15,8 @@ export const Route = createFileRoute("/gameOverScreen")({
 });
 
 function GameOverScreen() {
-  const [, setCharacter] = useContext(CharacterContext);
+  const { enemies } = Route.useSearch();
+  const [character, setCharacter] = useContext(CharacterContext);
   const [, setEquipment] = useContext(EquipmentContext);
 
   const handleClick = () => {
@@ -23,6 +25,7 @@ function GameOverScreen() {
       1,
       StartingItems,
       StartingShopInventory,
+      StartingStatTotals,
     ]);
     setEquipment(StartingEquipment);
   };
@@ -31,9 +34,27 @@ function GameOverScreen() {
     <div className="index">
       <header className="">
         {/* <h1>you have perished!</h1> */}
+        <h1 className="start-link-container">
+          <Link
+            to={character[1] % 15 === 0 ? "/bossBattle" : "/normalBattle"}
+            search={{ prevEnemies: enemies }}
+            mask={{
+              to: `/floor_${character[1]}`,
+            }}
+            className="start-link"
+          >
+            retry the current floor
+          </Link>
+        </h1>
         <h1 className="start-link-container" onClick={handleClick}>
-          <Link to="/normalBattle" className="start-link">
-            new game
+          <Link
+            to="/normalBattle"
+            mask={{
+              to: "/floor_1",
+            }}
+            className="start-link"
+          >
+            start over
           </Link>
         </h1>
       </header>

@@ -25,6 +25,11 @@ export const StartingCharacterStats = {
   isFloorCompleted: false,
 };
 
+export const StartingStatTotals = {
+  totalGold: 50,
+  totalKills: 0,
+};
+
 export const StartingItems = [
   {
     name: "Dull Sword",

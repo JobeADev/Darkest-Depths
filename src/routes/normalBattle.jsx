@@ -22,6 +22,7 @@ const getRandomObject = (array) => {
 
 function NormalBattle() {
   const navigate = useNavigate();
+  const { prevEnemies } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [equipment, setEquipment] = useContext(EquipmentContext);
   const encounterAmount = useRef(getRandomObject(EncounterAmounts));
@@ -74,6 +75,7 @@ function NormalBattle() {
   // console.log(encounterAmount.current);
   // console.log(character[2]);
   // console.log(character[3]);
+  // console.log(prevEnemies);
 
   const getEnemiesList = (num) => {
     if (character[1] <= 4) {
@@ -156,26 +158,33 @@ function NormalBattle() {
   };
 
   useEffect(() => {
-    let hasSupport = false;
-    const isHuman = Math.floor(Math.random() * 4);
-    const initialEnemies = [];
-    const enemiesList = getEnemiesList(isHuman);
-    const enemiesListWithoutSupport = getEnemiesListWithoutSupport(isHuman);
-    for (let i = 0; i < encounterAmount.current; i++) {
-      if (encounterAmount.current === 3) {
-        if (hasSupport) {
-          initialEnemies.push(getRandomObject(enemiesListWithoutSupport));
-        } else {
-          initialEnemies.push(getRandomObject(enemiesList));
-          if (initialEnemies[i].combatStyle === "support") {
-            hasSupport = true;
+    let initialEnemies;
+    if (!prevEnemies) {
+      let hasSupport = false;
+      const isHuman = Math.floor(Math.random() * 4);
+      initialEnemies = [];
+      const enemiesList = getEnemiesList(isHuman);
+      const enemiesListWithoutSupport = getEnemiesListWithoutSupport(isHuman);
+      for (let i = 0; i < encounterAmount.current; i++) {
+        if (encounterAmount.current === 3) {
+          if (hasSupport) {
+            initialEnemies.push(getRandomObject(enemiesListWithoutSupport));
+          } else {
+            initialEnemies.push(getRandomObject(enemiesList));
+            if (initialEnemies[i].combatStyle === "support") {
+              hasSupport = true;
+            }
           }
+        } else {
+          initialEnemies.push(getRandomObject(enemiesListWithoutSupport));
         }
-      } else {
-        initialEnemies.push(getRandomObject(enemiesListWithoutSupport));
       }
+      setEnemiesArray(initialEnemies);
+    } else {
+      encounterAmount.current = prevEnemies.length;
+      initialEnemies = prevEnemies;
+      setEnemiesArray(initialEnemies);
     }
-    setEnemiesArray(initialEnemies);
     const turnOrder =
       encounterAmount.current < 3
         ? [
@@ -725,7 +734,15 @@ function NormalBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
           if (playerCurrentHP > 0 && !hasRevived) {
             if (
@@ -841,12 +858,28 @@ function NormalBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied && !notSecond) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 5100),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 6600);
     } else if (
@@ -1022,12 +1055,28 @@ function NormalBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 3500),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 5100);
     } else if (
@@ -1121,7 +1170,15 @@ function NormalBattle() {
         }, 1400),
         setTimeout(() => {
           if (playerCurrentHP <= 0) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 3500);
     }
@@ -1147,6 +1204,7 @@ function NormalBattle() {
           character[1],
           character[2],
           character[3],
+          character[4],
         ]);
         if (runAwayCheck) goldDropped.current = 0;
         navigate({
@@ -1154,6 +1212,9 @@ function NormalBattle() {
           search: {
             gold: goldDropped.current,
             killCount: enemiesKilled.current,
+          },
+          mask: {
+            to: `/floor_${character[1]}`,
           },
         });
       }, 1700);
@@ -1288,7 +1349,15 @@ function NormalBattle() {
     }, 900);
     setTimeout(() => {
       if (playerCurrentHP <= 0) {
-        navigate({ to: "/gameOverScreen" });
+        navigate({
+          to: "/gameOverScreen",
+          search: {
+            enemies: enemiesArray,
+          },
+          mask: {
+            to: "/game_over",
+          },
+        });
       }
     }, 3900);
 

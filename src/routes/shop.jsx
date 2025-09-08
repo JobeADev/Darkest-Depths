@@ -194,11 +194,21 @@ function Shop() {
               character[1] + 1,
               handleNewPlayerInventory(),
               handleNewShopInventory(),
+              character[4],
             ])
           }
         >
           <Link
             to={(character[1] + 1) % 15 === 0 ? "/bossBattle" : "/normalBattle"}
+            mask={
+              (character[1] + 1) % 15 === 0
+                ? {
+                    to: "/boss",
+                  }
+                : {
+                    to: `/floor_${character[1] + 1}`,
+                  }
+            }
             className="victory-screen-link"
           >
             {(character[1] + 1) % 15 === 0 ? "boss fight" : "next fight"}

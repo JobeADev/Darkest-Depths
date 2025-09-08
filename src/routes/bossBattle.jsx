@@ -553,7 +553,12 @@ function BossBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
           if (playerCurrentHP > 0 && !hasRevived) {
             if (
@@ -675,12 +680,22 @@ function BossBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied && !notSecond) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 5100),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 6600);
     } else if (
@@ -874,12 +889,22 @@ function BossBattle() {
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 3500),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 5100);
     } else if (
@@ -984,7 +1009,12 @@ function BossBattle() {
         }, 1400),
         setTimeout(() => {
           if (playerCurrentHP <= 0) {
-            navigate({ to: "/gameOverScreen" });
+            navigate({
+              to: "/gameOverScreen",
+              mask: {
+                to: "/game_over",
+              },
+            });
           }
         }, 3500);
     }
@@ -1009,12 +1039,16 @@ function BossBattle() {
           character[1],
           character[2],
           character[3],
+          character[4],
         ]);
         navigate({
           to: "/victoryScreen",
           search: {
             gold: goldDropped.current,
             killCount: enemiesKilled.current,
+          },
+          mask: {
+            to: "/boss",
           },
         });
       }, 1700);
@@ -1130,7 +1164,12 @@ function BossBattle() {
     }, 900);
     setTimeout(() => {
       if (playerCurrentHP <= 0) {
-        navigate({ to: "/gameOverScreen" });
+        navigate({
+          to: "/gameOverScreen",
+          mask: {
+            to: "/game_over",
+          },
+        });
       }
     }, 3900);
 

@@ -38,7 +38,7 @@ function VictoryScreen() {
         <div className="victory-screen-blur">
           <div className="victory-screen-sheet">
             <p className="kill-counter">
-              enemies slain: <span className="kil-num">{killCount}</span>
+              enemies slain: <span className="kill-num">{killCount}</span>
             </p>
             <h1 className="victory-screen-title">
               {gold > 0 ? "victory !" : "escaped !"}
@@ -70,6 +70,10 @@ function VictoryScreen() {
                       handleFloorChange(),
                       character[2],
                       character[3],
+                      {
+                        totalGold: character[4].totalGold + gold,
+                        totalKills: character[4].totalKills + killCount,
+                      },
                     ])
                   : setCharacter([
                       {
@@ -87,10 +91,33 @@ function VictoryScreen() {
               }
             >
               <Link
-                to={(character[1] + 1) % 5 === 0 ? "/shop" : "/normalBattle"}
+                to={
+                  (character[1] + 1) % 16 === 0
+                    ? "/gameCompletion"
+                    : (character[1] + 1) % 5 === 0
+                      ? "/shop"
+                      : "/normalBattle"
+                }
+                mask={
+                  (character[1] + 1) % 16 === 0
+                    ? {
+                        to: "/game_complete",
+                      }
+                    : (character[1] + 1) % 15 === 0
+                      ? {
+                          to: `/floor_${character[1]}`,
+                        }
+                      : {
+                          to: `/floor_${character[1] + 1}`,
+                        }
+                }
                 className="victory-screen-link"
               >
-                {(character[1] + 1) % 5 === 0 ? "go to shop" : "next floor"}
+                {(character[1] + 1) % 16 === 0
+                  ? "completion screen"
+                  : (character[1] + 1) % 5 === 0
+                    ? "go to shop"
+                    : "next floor"}
               </Link>
             </h2>
           </div>

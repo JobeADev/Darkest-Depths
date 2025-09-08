@@ -13,6 +13,7 @@ import { Route as VictoryScreenRouteImport } from './routes/victoryScreen'
 import { Route as ShopRouteImport } from './routes/shop'
 import { Route as NormalBattleRouteImport } from './routes/normalBattle'
 import { Route as GameOverScreenRouteImport } from './routes/gameOverScreen'
+import { Route as GameCompletionRouteImport } from './routes/gameCompletion'
 import { Route as BossBattleRouteImport } from './routes/bossBattle'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -36,6 +37,11 @@ const GameOverScreenRoute = GameOverScreenRouteImport.update({
   path: '/gameOverScreen',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GameCompletionRoute = GameCompletionRouteImport.update({
+  id: '/gameCompletion',
+  path: '/gameCompletion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BossBattleRoute = BossBattleRouteImport.update({
   id: '/bossBattle',
   path: '/bossBattle',
@@ -50,6 +56,7 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/bossBattle': typeof BossBattleRoute
+  '/gameCompletion': typeof GameCompletionRoute
   '/gameOverScreen': typeof GameOverScreenRoute
   '/normalBattle': typeof NormalBattleRoute
   '/shop': typeof ShopRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/bossBattle': typeof BossBattleRoute
+  '/gameCompletion': typeof GameCompletionRoute
   '/gameOverScreen': typeof GameOverScreenRoute
   '/normalBattle': typeof NormalBattleRoute
   '/shop': typeof ShopRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/bossBattle': typeof BossBattleRoute
+  '/gameCompletion': typeof GameCompletionRoute
   '/gameOverScreen': typeof GameOverScreenRoute
   '/normalBattle': typeof NormalBattleRoute
   '/shop': typeof ShopRoute
@@ -77,6 +86,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/bossBattle'
+    | '/gameCompletion'
     | '/gameOverScreen'
     | '/normalBattle'
     | '/shop'
@@ -85,6 +95,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/bossBattle'
+    | '/gameCompletion'
     | '/gameOverScreen'
     | '/normalBattle'
     | '/shop'
@@ -93,6 +104,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/bossBattle'
+    | '/gameCompletion'
     | '/gameOverScreen'
     | '/normalBattle'
     | '/shop'
@@ -102,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BossBattleRoute: typeof BossBattleRoute
+  GameCompletionRoute: typeof GameCompletionRoute
   GameOverScreenRoute: typeof GameOverScreenRoute
   NormalBattleRoute: typeof NormalBattleRoute
   ShopRoute: typeof ShopRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GameOverScreenRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gameCompletion': {
+      id: '/gameCompletion'
+      path: '/gameCompletion'
+      fullPath: '/gameCompletion'
+      preLoaderRoute: typeof GameCompletionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/bossBattle': {
       id: '/bossBattle'
       path: '/bossBattle'
@@ -158,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BossBattleRoute: BossBattleRoute,
+  GameCompletionRoute: GameCompletionRoute,
   GameOverScreenRoute: GameOverScreenRoute,
   NormalBattleRoute: NormalBattleRoute,
   ShopRoute: ShopRoute,

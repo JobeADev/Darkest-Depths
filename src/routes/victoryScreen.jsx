@@ -87,6 +87,7 @@ function VictoryScreen() {
                       character[1],
                       character[2],
                       character[3],
+                      character[4],
                     ])
               }
             >

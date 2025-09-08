@@ -102,6 +102,7 @@
   padding: 8px 14px 0px 14px;
   font-size: 35px;
   color: var(--secondary);
+  white-space: nowrap;
   background-color: var(--title-bg);
   border-radius: 20px;
 }

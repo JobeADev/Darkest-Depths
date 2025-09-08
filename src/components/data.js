@@ -23,6 +23,7 @@ export const StartingCharacterStats = {
   gold: 50,
   hasRevived: false,
   isFloorCompleted: false,
+  isShopNext: false,
 };
 
 export const StartingStatTotals = {

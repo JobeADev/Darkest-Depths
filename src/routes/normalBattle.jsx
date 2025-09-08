@@ -1200,6 +1200,7 @@ function NormalBattle() {
             gold: character[0].gold,
             hasRevived: hasPlayerRevived,
             isFloorCompleted: true,
+            isShopNext: character[0].isShopNext,
           },
           character[1],
           character[2],

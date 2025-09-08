@@ -152,9 +152,17 @@
   display: flex;
   position: absolute;
   top: 25%;
-  left: 22.5%;
+  left: 20%;
   font-size: 24px;
   color: var(--secondary);
+}
+
+.pre-boss-icons .alt-header-icon:first-of-type {
+  margin-right: 3px;
+}
+
+.pre-boss-icons .alt-header-icon:last-of-type {
+  margin-left: 3px;
 }
 
 .alt-header-icon {

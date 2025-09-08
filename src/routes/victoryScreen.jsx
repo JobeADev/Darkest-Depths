@@ -57,7 +57,8 @@ function VictoryScreen() {
             <h2
               className="victory-screen-link-container"
               onClick={() =>
-                character[0].isFloorCompleted
+                character[0].isFloorCompleted &&
+                (character[1] % 14 === 0 || (character[1] + 1) % 5 === 0)
                   ? setCharacter([
                       {
                         type: character[0].type,
@@ -66,6 +67,7 @@ function VictoryScreen() {
                         gold: character[0].gold + gold,
                         hasRevived: character[0].hasRevived,
                         isFloorCompleted: false,
+                        isShopNext: true,
                       },
                       handleFloorChange(),
                       character[2],
@@ -75,32 +77,44 @@ function VictoryScreen() {
                         totalKills: character[4].totalKills + killCount,
                       },
                     ])
-                  : setCharacter([
-                      {
-                        type: character[0].type,
-                        hp: character[0].hp,
-                        maxHp: character[0].maxHp,
-                        gold: character[0].gold,
-                        hasRevived: character[0].hasRevived,
-                        isFloorCompleted: false,
-                      },
-                      character[1],
-                      character[2],
-                      character[3],
-                      character[4],
-                    ])
+                  : character[0].isFloorCompleted
+                    ? setCharacter([
+                        {
+                          type: character[0].type,
+                          hp: character[0].hp,
+                          maxHp: character[0].maxHp,
+                          gold: character[0].gold + gold,
+                          hasRevived: character[0].hasRevived,
+                          isFloorCompleted: false,
+                          isShopNext: character[0].isShopNext,
+                        },
+                        handleFloorChange(),
+                        character[2],
+                        character[3],
+                        {
+                          totalGold: character[4].totalGold + gold,
+                          totalKills: character[4].totalKills + killCount,
+                        },
+                      ])
+                    : setCharacter([
+                        character[0],
+                        character[1],
+                        character[2],
+                        character[3],
+                        character[4],
+                      ])
               }
             >
               <Link
                 to={
-                  (character[1] + 1) % 16 === 0
+                  (character[1] + 1) % 16 === 0 || character[1] % 16 === 0
                     ? "/gameCompletion"
-                    : (character[1] + 1) % 5 === 0
+                    : (character[1] + 1) % 5 === 0 || character[1] % 5 === 0
                       ? "/shop"
                       : "/normalBattle"
                 }
                 mask={
-                  (character[1] + 1) % 16 === 0
+                  (character[1] + 1) % 16 === 0 || character[1] % 16 === 0
                     ? {
                         to: "/game_complete",
                       }
@@ -114,9 +128,9 @@ function VictoryScreen() {
                 }
                 className="victory-screen-link"
               >
-                {(character[1] + 1) % 16 === 0
+                {(character[1] + 1) % 16 === 0 || character[1] % 16 === 0
                   ? "completion screen"
-                  : (character[1] + 1) % 5 === 0
+                  : (character[1] + 1) % 5 === 0 || character[1] % 5 === 0
                     ? "go to shop"
                     : "next floor"}
               </Link>

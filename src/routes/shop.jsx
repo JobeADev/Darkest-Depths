@@ -26,7 +26,7 @@ function Shop() {
 
   // console.log(ShopInventory);
   // console.log(remainingItems.current);
-  // console.log(shopInventory);
+  // console.log(unboughtItems);
   // console.log(boughtItems);
 
   // const handleFloorChange = () => {
@@ -92,7 +92,7 @@ function Shop() {
         else newVisibilityArray.push(itemVisibility[i]);
       }
       setBoughtItems((prevItems) => [...prevItems, shopInventory[index]]);
-      setUnboughtItems(unboughtItems.filter((i) => i != unboughtItems[index]));
+      setUnboughtItems(unboughtItems.filter((i) => i != shopInventory[index]));
       setItemVisibility(newVisibilityArray);
       setError(false);
       setPopupText("Purchased!");
@@ -182,26 +182,39 @@ function Shop() {
         <h2
           className="shop-screen-link-container"
           onClick={() =>
-            setCharacter([
-              {
-                type: character[0].type,
-                hp: currentHp,
-                maxHp: currentMaxHp,
-                gold: currentGold,
-                hasRevived: character[0].hasRevived,
-                isFloorCompleted: character[0].isFloorCompleted,
-              },
-              character[1] + 1,
-              handleNewPlayerInventory(),
-              handleNewShopInventory(),
-              character[4],
-            ])
+            character[0].isShopNext
+              ? setCharacter([
+                  {
+                    type: character[0].type,
+                    hp: currentHp,
+                    maxHp: currentMaxHp,
+                    gold: currentGold,
+                    hasRevived: character[0].hasRevived,
+                    isFloorCompleted: character[0].isFloorCompleted,
+                    isShopNext: false,
+                  },
+                  character[1] + 1,
+                  handleNewPlayerInventory(),
+                  handleNewShopInventory(),
+                  character[4],
+                ])
+              : setCharacter([
+                  character[0],
+                  character[1],
+                  character[2],
+                  character[3],
+                  character[4],
+                ])
           }
         >
           <Link
-            to={(character[1] + 1) % 15 === 0 ? "/bossBattle" : "/normalBattle"}
+            to={
+              (character[1] + 1) % 15 === 0 || character[1] % 15 === 0
+                ? "/bossBattle"
+                : "/normalBattle"
+            }
             mask={
-              (character[1] + 1) % 15 === 0
+              (character[1] + 1) % 15 === 0 || character[1] % 15 === 0
                 ? {
                     to: "/boss",
                   }
@@ -211,7 +224,9 @@ function Shop() {
             }
             className="victory-screen-link"
           >
-            {(character[1] + 1) % 15 === 0 ? "boss fight" : "next fight"}
+            {(character[1] + 1) % 15 === 0 || character[1] % 15 === 0
+              ? "boss fight"
+              : "next fight"}
           </Link>
         </h2>
         <section className="shop-rug-container">

@@ -3,6 +3,11 @@
   --completion-sheet-width: 40%;
 }
 
+.game-completion-container {
+  height: 84vh;
+  align-content: center;
+}
+
 .game-completion-header {
   color: var(--secondary);
   text-align: center;

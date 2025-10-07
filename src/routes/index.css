@@ -18,6 +18,7 @@ body {
 
 .start-link-container {
   max-width: 200px;
+  margin-top: 30px;
   text-align: center;
   justify-self: center;
 }

@@ -31,7 +31,7 @@ function GameCompletion() {
   };
 
   return (
-    <div className="index">
+    <div className="game-completion-container">
       <header className="game-completion-header">
         <h1>you have defeated the Necromancer and finished the game!</h1>
       </header>

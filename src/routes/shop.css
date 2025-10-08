@@ -202,23 +202,23 @@
 }
 
 .nobles-sword-shop {
-  background-image: url(../../Nobles-Sword-Gif-3fps.gif);
+  background-image: url(../../Equipment/Nobles-Sword-Gif-3fps.gif);
 }
 
 .radiant-sword-shop {
-  background-image: url(../../Radiant-Sword-Gif-3fps.gif);
+  background-image: url(../../Equipment/Radiant-Sword-Gif-3fps.gif);
 }
 
 .flame-kissed-sword-shop {
-  background-image: url(../../Flame-Kissed-Sword-Gif-3fps.gif);
+  background-image: url(../../Equipment/Flame-Kissed-Sword-Gif-3fps.gif);
 }
 
 .revival-pendant-shop {
-  background-image: url(../../Revival-Pendant-Gif-3fps.gif);
+  background-image: url(../../Equipment/Revival-Pendant-Gif-3fps.gif);
 }
 
 .healing-icon {
-  background-image: url(../../Healing-Icon.png);
+  background-image: url(../../Icons/Healing-Icon.png);
   background-size: cover;
   height: 80px;
   width: 80px;

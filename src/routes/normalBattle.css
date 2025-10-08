@@ -218,7 +218,7 @@
   display: flex;
   position: relative;
   justify-content: center;
-  background-image: url(../../Knight-with-pause-4fps.gif);
+  background-image: url(../../Player/Knight-with-pause-4fps.gif);
   height: 160px;
   width: 160px;
   align-self: center;
@@ -652,11 +652,11 @@
 
 /* enemy images */
 .zombie {
-  background-image: url(../../Zombie-with-pause-4fps.gif);
+  background-image: url(../../Enemies/Zombie-with-pause-4fps.gif);
 }
 
 .spider {
-  background-image: url(../../Spider-with-pause-4fps.gif);
+  background-image: url(../../Enemies/Spider-with-pause-4fps.gif);
 }
 
 .hell-hound {
@@ -668,15 +668,15 @@
 }
 
 .draugr {
-  background-image: url(../../Draugr-with-pause-4fps.gif);
+  background-image: url(../../Enemies/Draugr-with-pause-4fps.gif);
 }
 
 .elder-spider {
-  background-image: url(../../Elder-Spider-with-pause-4fps.gif);
+  background-image: url(../../Enemies/Elder-Spider-with-pause-4fps.gif);
 }
 
 .zombie-shaman {
-  background-image: url(../../Zombie-Shaman-with-pause-4fps.gif);
+  background-image: url(../../Enemies/Zombie-Shaman-with-pause-4fps.gif);
 }
 
 .brigand {
@@ -693,32 +693,32 @@
 
 /* weapon/item images */
 .dull-sword {
-  background-image: url(../../Dull-Sword-PNG.png);
+  background-image: url(../../Equipment/Dull-Sword-PNG.png);
 }
 
 .nobles-sword {
-  background-image: url(../../Nobles-Sword-PNG.png);
+  background-image: url(../../Equipment/Nobles-Sword-PNG.png);
 }
 
 .radiant-sword {
-  background-image: url(../../Radiant-Sword-PNG.png);
+  background-image: url(../../Equipment/Radiant-Sword-PNG.png);
 }
 
 .flame-kissed-sword {
-  background-image: url(../../Flame-Kissed-Sword-PNG.png);
+  background-image: url(../../Equipment/Flame-Kissed-Sword-PNG.png);
 }
 
 .revival-pendant {
-  background-image: url(../../Revival-Pendant-PNG.png);
+  background-image: url(../../Equipment/Revival-Pendant-PNG.png);
 }
 
 /* info icons */
 .undead {
-  background-image: url(../../Undead-Icon-16x16.png);
+  background-image: url(../../Icons/Undead-Icon-16x16.png);
 }
 
 .beast {
-  background-image: url(../../Beast-Icon-16x16.png);
+  background-image: url(../../Icons/Beast-Icon-16x16.png);
 }
 
 .human {
@@ -726,40 +726,40 @@
 }
 
 .holy {
-  background-image: url(../../Holy-Icon-16x16.png);
+  background-image: url(../../Icons/Holy-Icon-16x16.png);
 }
 
 .fire {
-  background-image: url(../../Fire-Icon-16x16.png);
+  background-image: url(../../Icons/Fire-Icon-16x16.png);
 }
 
 .attacker {
-  background-image: url(../../Attacker-Icon-16x16.png);
+  background-image: url(../../Icons/Attacker-Icon-16x16.png);
 }
 
 .tank {
-  background-image: url(../../Tank-Icon-16x16.png);
+  background-image: url(../../Icons/Tank-Icon-16x16.png);
 }
 
 .support {
-  background-image: url(../../Support-Icon-16x16.png);
+  background-image: url(../../Icons/Support-Icon-16x16.png);
 }
 
 /* other icons */
 .gold-bag {
-  background-image: url(../../Gold-Bag-Icon.png);
+  background-image: url(../../Icons/Gold-Bag-Icon.png);
 }
 
 .tank-shield {
-  background-image: url(../../Shield-Icon-16x16.png);
+  background-image: url(../../Icons/Shield-Icon-16x16.png);
 }
 
 .poison {
-  background-image: url(../../Poison-Icon-16x16.png);
+  background-image: url(../../Icons/Poison-Icon-16x16.png);
 }
 
 .bleed {
-  background-image: url(../../Bleed-Icon-16x16.png);
+  background-image: url(../../Icons/Bleed-Icon-16x16.png);
 }
 
 .halo {

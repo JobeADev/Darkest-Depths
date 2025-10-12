@@ -18,7 +18,7 @@ function BossBattle() {
   const [isLoading, setIsLoading] = useState(true);
   const [turnCount, setTurnCount] = useState(0);
   const [hoveredEnemy, setHoveredEnemy] = useState({});
-  const [enemiesArray, setEnemiesArray] = useState(BossEnemiesList[0]);
+  const [enemiesArray] = useState(BossEnemiesList[0]);
   const [isPlayersTurn, setIsPlayersTurn] = useState(true);
   const [canAct, setCanAct] = useState(true);
   const [isPlayerAttacking, setIsPlayerAttacking] = useState([

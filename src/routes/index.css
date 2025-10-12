@@ -1,4 +1,5 @@
 :root {
+  --debuff-color: rgb(190, 57, 47);
 }
 
 body {
@@ -11,9 +12,6 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   /* align-content: center; */
-}
-
-.index_links_container {
 }
 
 .start-link-container {

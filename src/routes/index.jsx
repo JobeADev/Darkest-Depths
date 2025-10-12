@@ -78,7 +78,7 @@ function Index() {
           </p>
         </div>
       </header>
-      <div className="index_links_container">
+      <div className="">
         <h1 className="start-link-container" onClick={handleClick}>
           <Link
             to="/normalBattle"

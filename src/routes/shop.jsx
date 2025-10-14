@@ -24,16 +24,6 @@ function Shop() {
   const healingCost = 15;
   const hpIncreaseCost = 20;
 
-  // console.log(ShopInventory);
-  // console.log(remainingItems.current);
-  // console.log(unboughtItems);
-  // console.log(boughtItems);
-
-  // const handleFloorChange = () => {
-  //   if ((character[1] + 1) % 16 === 0) return character[1];
-  //   else return character[1] + 1;
-  // };
-
   const handleNewPlayerInventory = () => {
     return [...character[2], ...boughtItems];
   };

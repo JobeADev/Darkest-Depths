@@ -60,23 +60,6 @@ function NormalBattle() {
   const poisonFailPercent = 6; // this represents 70% to fail, 30% chance for success
   const bleedFailPercent = 6; // this represents 70% to fail, 30% chance for success
 
-  // console.log(enemyTurnOrder.current);
-  // console.log(enemiesKilled.current);
-  // console.log(enemyBuffedDamage.current);
-  // console.log(playerHP);
-  // console.log(enemyHP);
-  // console.log(isPlayerAttacking);
-  // console.log(isEnemyAttacking);
-  // console.log(character);
-  // console.log(equipment);
-  // console.log(goldDropped);
-  // console.log(hoveredEnemy);
-  // console.log(enemiesArray);
-  // console.log(encounterAmount.current);
-  // console.log(character[2]);
-  // console.log(character[3]);
-  // console.log(prevEnemies);
-
   const getEnemiesList = (num) => {
     if (character[1] <= 4) {
       if (num == 0)

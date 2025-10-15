@@ -65,6 +65,8 @@ body {
 
 .tutorial_item {
   margin-bottom: 2px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 17px;
 }
 
 .tutorial_item.controls {
@@ -72,10 +74,12 @@ body {
 }
 
 .click_wrapper {
+  font-size: initial;
   color: var(--ally-color);
 }
 
 .debuff_wrapper {
+  font-size: initial;
   color: var(--debuff-color);
 }
 

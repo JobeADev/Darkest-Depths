@@ -76,6 +76,19 @@ function Index() {
             different enemy that this enemy will block the attack. This skill
             has a 30% chance of triggering
           </p>
+          <p className="tutorial_item">
+            <span className="tutorial_icon support"></span>{" "}
+            <span className="debuff_wrapper">Heal</span> : While there is an
+            enemy alive with this skill, if another enemy is hurt, their hp will
+            be healed by 2
+          </p>
+          <p className="tutorial_item">
+            <span className="tutorial_icon support"></span>{" "}
+            <span className="debuff_wrapper">Buff</span> : While there is an
+            enemy alive with this skill, if all other enemy's hp are at the
+            maximum, this skill will trigger and give a random enemy +1 to
+            attack power
+          </p>
         </div>
       </header>
       <div className="">

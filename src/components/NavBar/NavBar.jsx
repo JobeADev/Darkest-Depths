@@ -1,5 +1,5 @@
 import { useState, useContext, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { ClickedContext, CharacterContext } from "../contexts";
 import { FloorInfoArray } from "../data";
 import "./NavBar.css";
@@ -7,6 +7,7 @@ import "./NavBar.css";
 export default function NavBar() {
   const [clicked, setClicked] = useContext(ClickedContext);
   const [character] = useContext(CharacterContext);
+  const location = useLocation();
   // const [isMobile, setIsMobile] = useState(false);
 
   /* const handleScreenChange = () => {
@@ -46,11 +47,15 @@ export default function NavBar() {
         {/* <header className="floor-title-container"> */}
         {character[1] < 16 ? (
           <h1 className="floor-title">
-            {character[1] > 0 ? `floor ${character[1]}` : "darkest depths"}
+            {character[1] > 0 && location.pathname !== "/gameOverScreen"
+              ? `Floor ${character[1]}`
+              : character[1] > 0 && location.pathname === "/gameOverScreen"
+                ? "Game Over"
+                : "Darkest Depths"}
           </h1>
         ) : null}
         {/* </header> */}
-        {character[1] > 0 ? (
+        {character[1] > 0 && location.pathname !== "/gameOverScreen" ? (
           <section className="progress-bar-container">
             {FloorInfoArray.map((f, index) => (
               <div

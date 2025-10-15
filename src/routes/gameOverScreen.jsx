@@ -9,6 +9,7 @@ import {
   StartingEquipment,
   StartingShopInventory,
 } from "../components/data";
+import "./gameOverScreen.css";
 
 export const Route = createFileRoute("/gameOverScreen")({
   component: GameOverScreen,
@@ -32,7 +33,7 @@ function GameOverScreen() {
 
   return (
     <div className="index">
-      <header className="">
+      <header className="game_over_links">
         {/* <h1>you have perished!</h1> */}
         <h1 className="start-link-container">
           <Link
@@ -54,11 +55,10 @@ function GameOverScreen() {
             }}
             className="start-link"
           >
-            start over
+            start over from the beginning
           </Link>
         </h1>
       </header>
-      <div className=""></div>
     </div>
   );
 }

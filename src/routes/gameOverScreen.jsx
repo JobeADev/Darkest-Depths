@@ -33,9 +33,9 @@ function GameOverScreen() {
 
   return (
     <div className="index">
-      <header className="game_over_links">
-        {/* <h1>you have perished!</h1> */}
-        <h1 className="start-link-container">
+      <h1 className="game_over_link_title">you have perished!</h1>
+      <section className="game_over_links">
+        <h2 className="start-link-container">
           <Link
             to={character[1] % 15 === 0 ? "/bossBattle" : "/normalBattle"}
             search={{ prevEnemies: enemies }}
@@ -46,8 +46,8 @@ function GameOverScreen() {
           >
             retry the current floor
           </Link>
-        </h1>
-        <h1 className="start-link-container" onClick={handleClick}>
+        </h2>
+        <h2 className="start-link-container" onClick={handleClick}>
           <Link
             to="/normalBattle"
             mask={{
@@ -57,8 +57,8 @@ function GameOverScreen() {
           >
             start over from the beginning
           </Link>
-        </h1>
-      </header>
+        </h2>
+      </section>
     </div>
   );
 }

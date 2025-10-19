@@ -5,7 +5,7 @@ import { FloorInfoArray } from "../data";
 import "./NavBar.css";
 
 export default function NavBar() {
-  const [clicked, setClicked] = useContext(ClickedContext);
+  // const [clicked, setClicked] = useContext(ClickedContext);
   const [character] = useContext(CharacterContext);
   const location = useLocation();
   // const [isMobile, setIsMobile] = useState(false);
@@ -27,9 +27,9 @@ export default function NavBar() {
   //   };
   // }, [window.scrollY]); // Re-run effect if lastScrollY changes
 
-  const closeMobileMenu = () => {
-    setClicked(false);
-  };
+  // const closeMobileMenu = () => {
+  //   setClicked(false);
+  // };
 
   return (
     <div className="nav-bar-container">
@@ -40,9 +40,6 @@ export default function NavBar() {
             closeMobileMenu();
           }}
         >
-          <Link to="/" className="nav-logo-link">
-            home
-          </Link>
         </div> */}
         {/* <header className="floor-title-container"> */}
         {character[1] < 16 ? (
@@ -81,7 +78,7 @@ export default function NavBar() {
                         : f == "shop"
                           ? "header-icon shop-icon"
                           : f == "boss"
-                            ? "header-icon undead"
+                            ? "header-icon bossfight-icon"
                             : ""
                     }
                   />

@@ -180,6 +180,10 @@
   background-image: url(../../../Icons/Shop-Icon-15x16.png);
 }
 
+.bossfight-icon {
+  background-image: url(../../../Icons/Bossfight-Icon-16x16.png);
+}
+
 /* .nav-logo {
   flex-grow: 0.02;
 } */

@@ -33,7 +33,7 @@ function GameOverScreen() {
 
   return (
     <div className="index">
-      <h1 className="game_over_link_title">you have perished!</h1>
+      <h1 className="game_over_link_title">you have perished !</h1>
       <section className="game_over_links">
         <h2 className="start-link-container">
           <Link

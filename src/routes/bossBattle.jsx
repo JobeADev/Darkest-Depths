@@ -567,6 +567,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -700,6 +703,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -710,6 +716,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -921,6 +930,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -931,6 +943,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -1047,6 +1062,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                playerRevived: hasPlayerRevived,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -1215,6 +1233,9 @@ function BossBattle() {
       if (playerCurrentHP <= 0) {
         navigate({
           to: "/gameOverScreen",
+          search: {
+            playerRevived: hasPlayerRevived,
+          },
           mask: {
             to: "/game_over",
           },

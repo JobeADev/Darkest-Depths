@@ -16,7 +16,7 @@ export const Route = createFileRoute("/gameOverScreen")({
 });
 
 function GameOverScreen() {
-  const { enemies } = Route.useSearch();
+  const { enemies, playerRevived } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [, setEquipment] = useContext(EquipmentContext);
 
@@ -35,7 +35,33 @@ function GameOverScreen() {
     <div className="index">
       <h1 className="game_over_link_title">you have perished !</h1>
       <section className="game_over_links">
-        <h2 className="start-link-container">
+        <h2
+          className="start-link-container"
+          onClick={
+            playerRevived && !character[0].hasRevived
+              ? () =>
+                  setCharacter([
+                    character[0],
+                    character[1],
+                    [
+                      ...character[2],
+                      {
+                        name: "Revival Pendant",
+                        type: "Accessory",
+                        element: "Holy",
+                        effect: "Upon death, revive and recover 30% HP",
+                        durability: 1,
+                        class: "revival-pendant",
+                        shop: "revival-pendant-shop",
+                        cost: 80,
+                      },
+                    ],
+                    character[3],
+                    character[4],
+                  ])
+              : null
+          }
+        >
           <Link
             to={character[1] % 15 === 0 ? "/bossBattle" : "/normalBattle"}
             search={{ prevEnemies: enemies }}

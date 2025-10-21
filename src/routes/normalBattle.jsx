@@ -733,6 +733,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -863,6 +864,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -876,6 +878,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1072,6 +1075,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1085,6 +1089,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1193,6 +1198,7 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
+                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1385,6 +1391,7 @@ function NormalBattle() {
           to: "/gameOverScreen",
           search: {
             enemies: enemiesArray,
+            playerRevived: hasPlayerRevived,
           },
           mask: {
             to: "/game_over",

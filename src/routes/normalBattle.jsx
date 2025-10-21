@@ -601,7 +601,13 @@ function NormalBattle() {
                 const filteredInventory = character[2].filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([character[0], character[1], filteredInventory]);
+                setCharacter([
+                  character[0],
+                  character[1],
+                  filteredInventory,
+                  character[3],
+                  character[4],
+                ]);
                 canRevive = false;
                 setHasPlayerRevived(true);
               } else {
@@ -666,7 +672,13 @@ function NormalBattle() {
                   const filteredInventory = character[2].filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([character[0], character[1], filteredInventory]);
+                  setCharacter([
+                    character[0],
+                    character[1],
+                    filteredInventory,
+                    character[3],
+                    character[4],
+                  ]);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -747,7 +759,13 @@ function NormalBattle() {
                   const filteredInventory = character[2].filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([character[0], character[1], filteredInventory]);
+                  setCharacter([
+                    character[0],
+                    character[1],
+                    filteredInventory,
+                    character[3],
+                    character[4],
+                  ]);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -893,7 +911,13 @@ function NormalBattle() {
                 const filteredInventory = character[2].filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([character[0], character[1], filteredInventory]);
+                setCharacter([
+                  character[0],
+                  character[1],
+                  filteredInventory,
+                  character[3],
+                  character[4],
+                ]);
                 canRevive = false;
                 setHasPlayerRevived(true);
               } else {
@@ -952,7 +976,13 @@ function NormalBattle() {
                   const filteredInventory = character[2].filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([character[0], character[1], filteredInventory]);
+                  setCharacter([
+                    character[0],
+                    character[1],
+                    filteredInventory,
+                    character[3],
+                    character[4],
+                  ]);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -1091,7 +1121,13 @@ function NormalBattle() {
                 const filteredInventory = character[2].filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([character[0], character[1], filteredInventory]);
+                setCharacter([
+                  character[0],
+                  character[1],
+                  filteredInventory,
+                  character[3],
+                  character[4],
+                ]);
                 setHasPlayerRevived(true);
               } else {
                 setPlayerHP(0);
@@ -1270,7 +1306,13 @@ function NormalBattle() {
             const filteredInventory = character[2].filter(
               (i) => i.name != "Revival Pendant",
             );
-            setCharacter([character[0], character[1], filteredInventory]);
+            setCharacter([
+              character[0],
+              character[1],
+              filteredInventory,
+              character[3],
+              character[4],
+            ]);
             canRevive = false;
             setHasPlayerRevived(true);
             setIsPlayersTurn(true);
@@ -1299,7 +1341,13 @@ function NormalBattle() {
             const filteredInventory = character[2].filter(
               (i) => i.name != "Revival Pendant",
             );
-            setCharacter([character[0], character[1], filteredInventory]);
+            setCharacter([
+              character[0],
+              character[1],
+              filteredInventory,
+              character[3],
+              character[4],
+            ]);
             canRevive = false;
             setHasPlayerRevived(true);
             setIsPlayersTurn(true);

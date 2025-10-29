@@ -94,6 +94,17 @@ export const StartingShopInventory = [
   },
 ];
 
+export const DroppableItems = [
+  {
+    name: "Regen Potion",
+    type: "Consumable",
+    element: "Normal",
+    effect: "",
+    durability: 1,
+    class: "regen-potion",
+  },
+];
+
 export const EnemiesList = [
   {
     floors: "early",

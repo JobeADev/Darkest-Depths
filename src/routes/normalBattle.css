@@ -712,6 +712,10 @@
   background-image: url(../../Equipment/Revival-Pendant-PNG.png);
 }
 
+.regen-potion {
+  background-image: url(../../Equipment/Regen-Potion-PNG.png);
+}
+
 /* info icons */
 .undead {
   background-image: url(../../Icons/Undead-Icon-16x16.png);

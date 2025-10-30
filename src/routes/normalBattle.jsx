@@ -45,6 +45,7 @@ function NormalBattle() {
   const [isEnemySupporting, setIsEnemySupporting] = useState(false);
   const [playerHP, setPlayerHP] = useState(character[0].hp);
   const [enemyHP, setEnemyHP] = useState([0, 0, 0]);
+  const [playerRegen, setPlayerRegen] = useState(0);
   const [poisonDamage, setPoisonDamage] = useState(0);
   const [bleedDamage, setBleedDamage] = useState(0);
   const enemyTurnOrder = useRef(null);
@@ -55,10 +56,10 @@ function NormalBattle() {
   const [hasPlayerRevived, setHasPlayerRevived] = useState(
     character[0].hasRevived,
   );
-  const runFailPercent = 24; // this represents 25% to fail, 75% chance for success
-  const tankFailPercent = 6; // this represents 70% to fail, 30% chance for success
-  const poisonFailPercent = 6; // this represents 70% to fail, 30% chance for success
-  const bleedFailPercent = 6; // this represents 70% to fail, 30% chance for success
+  const runFailPercent = 75; // this represents 25% to fail, 75% chance for success
+  const tankFailPercent = 30; // this represents 70% to fail, 30% chance for success
+  const poisonFailPercent = 30; // this represents 70% to fail, 30% chance for success
+  const bleedFailPercent = 30; // this represents 70% to fail, 30% chance for success
 
   const getEnemiesList = (num) => {
     if (character[1] <= 4) {
@@ -244,7 +245,7 @@ function NormalBattle() {
   const handleRunAwayCheck = () => {
     const num = Math.floor(Math.random() * 100);
 
-    if (num > runFailPercent) {
+    if (num < runFailPercent) {
       setIsRunningAway(true);
       return true;
     } else {
@@ -393,12 +394,12 @@ function NormalBattle() {
   const handlePlayerAttack = (enemyCurrentHP, number, enemyWeakness) => {
     let strongAgainst = 0;
     let isGuarded = false;
-    const guardRoll = Math.floor(Math.random() * 10);
+    const guardRoll = Math.floor(Math.random() * 100);
     if (enemyWeakness === equipment[0].element) {
       strongAgainst = equipment[0].damage;
     }
     if (number === 1 && enemyCurrentHP[0] > 0) {
-      if (guardRoll > tankFailPercent) {
+      if (guardRoll < tankFailPercent) {
         if (areEnemiesTanks.current[1] && enemyCurrentHP[1] > 0) {
           isGuarded = true;
           if (enemiesArray[1].weakness != equipment[0].element)
@@ -452,7 +453,7 @@ function NormalBattle() {
         setEnemyHP([enemyCurrentHP[0], enemyHP[1], enemyHP[2]]);
       }
     } else if (number === 2 && enemyCurrentHP[1] > 0) {
-      if (guardRoll > tankFailPercent) {
+      if (guardRoll < tankFailPercent) {
         if (areEnemiesTanks.current[0] && enemyCurrentHP[0] > 0) {
           isGuarded = true;
           if (enemiesArray[0].weakness != equipment[0].element)
@@ -506,7 +507,7 @@ function NormalBattle() {
         setEnemyHP([enemyHP[0], enemyCurrentHP[1], enemyHP[2]]);
       }
     } else if (number === 3 && enemyCurrentHP[2] > 0) {
-      if (guardRoll > tankFailPercent) {
+      if (guardRoll < tankFailPercent) {
         if (areEnemiesTanks.current[0] && enemyCurrentHP[0] > 0) {
           isGuarded = true;
           if (enemiesArray[0].weakness != equipment[0].element)
@@ -617,13 +618,13 @@ function NormalBattle() {
               if (
                 enemiesArray[enemyTurnOrder.current[0]].class.includes("spider")
               ) {
-                const poisonRoll = Math.floor(Math.random() * 10);
-                if (poisonRoll > poisonFailPercent)
+                const poisonRoll = Math.floor(Math.random() * 100);
+                if (poisonRoll < poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
               if (enemiesArray[enemyTurnOrder.current[0]].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(
@@ -691,15 +692,15 @@ function NormalBattle() {
                     "spider",
                   )
                 ) {
-                  const poisonRoll = Math.floor(Math.random() * 10);
-                  if (poisonRoll > poisonFailPercent)
+                  const poisonRoll = Math.floor(Math.random() * 100);
+                  if (poisonRoll < poisonFailPercent)
                     setPoisonDamage(
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
                 }
                 if (enemiesArray[enemyTurnOrder.current[1]].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -779,15 +780,15 @@ function NormalBattle() {
                     "spider",
                   )
                 ) {
-                  const poisonRoll = Math.floor(Math.random() * 10);
-                  if (poisonRoll > poisonFailPercent)
+                  const poisonRoll = Math.floor(Math.random() * 100);
+                  if (poisonRoll < poisonFailPercent)
                     setPoisonDamage(
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
                 }
                 if (enemiesArray[enemyTurnOrder.current[2]].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -928,13 +929,13 @@ function NormalBattle() {
               }
             } else {
               if (enemiesArray[first].class.includes("spider")) {
-                const poisonRoll = Math.floor(Math.random() * 10);
-                if (poisonRoll > poisonFailPercent)
+                const poisonRoll = Math.floor(Math.random() * 100);
+                if (poisonRoll < poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
               if (enemiesArray[first].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(
@@ -994,15 +995,15 @@ function NormalBattle() {
                 }
               } else {
                 if (enemiesArray[second].class.includes("spider")) {
-                  const poisonRoll = Math.floor(Math.random() * 10);
-                  if (poisonRoll > poisonFailPercent)
+                  const poisonRoll = Math.floor(Math.random() * 100);
+                  if (poisonRoll < poisonFailPercent)
                     setPoisonDamage(
                       (previousPoisonNum) => previousPoisonNum + 1,
                     );
                 }
                 if (enemiesArray[second].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -1139,13 +1140,13 @@ function NormalBattle() {
               }
             } else {
               if (enemiesArray[living].class.includes("spider")) {
-                const poisonRoll = Math.floor(Math.random() * 10);
-                if (poisonRoll > poisonFailPercent)
+                const poisonRoll = Math.floor(Math.random() * 100);
+                if (poisonRoll < poisonFailPercent)
                   setPoisonDamage((previousPoisonNum) => previousPoisonNum + 1);
               }
               if (enemiesArray[living].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(

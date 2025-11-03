@@ -749,6 +749,10 @@
   background-image: url(../../Icons/Support-Icon-16x16.png);
 }
 
+.regen {
+  background-image: url(../../Icons/Regen-Icon-16x16.png);
+}
+
 /* other icons */
 .gold-bag {
   background-image: url(../../Icons/Gold-Bag-Icon.png);

@@ -26,6 +26,7 @@ function NormalBattle() {
   const [character, setCharacter] = useContext(CharacterContext);
   const [equipment, setEquipment] = useContext(EquipmentContext);
   const encounterAmount = useRef(getRandomObject(EncounterAmounts));
+  const [currentInventory, setCurrentInventory] = useState([...character[2]]);
   const [isLoading, setIsLoading] = useState(true);
   const [isRunningAway, setIsRunningAway] = useState(false);
   const [hoveredEnemy, setHoveredEnemy] = useState({});
@@ -599,16 +600,10 @@ function NormalBattle() {
                 playerCurrentHP = revivalHp;
                 setPlayerHP(revivalHp);
                 setEquipment([equipment[0], {}]);
-                const filteredInventory = character[2].filter(
+                const filteredInventory = currentInventory.filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([
-                  character[0],
-                  character[1],
-                  filteredInventory,
-                  character[3],
-                  character[4],
-                ]);
+                setCurrentInventory(filteredInventory);
                 canRevive = false;
                 setHasPlayerRevived(true);
               } else {
@@ -670,16 +665,10 @@ function NormalBattle() {
                   playerCurrentHP = revivalHp;
                   setPlayerHP(revivalHp);
                   setEquipment([equipment[0], {}]);
-                  const filteredInventory = character[2].filter(
+                  const filteredInventory = currentInventory.filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([
-                    character[0],
-                    character[1],
-                    filteredInventory,
-                    character[3],
-                    character[4],
-                  ]);
+                  setCurrentInventory(filteredInventory);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -734,7 +723,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -758,16 +746,10 @@ function NormalBattle() {
                   playerCurrentHP = revivalHp;
                   setPlayerHP(revivalHp);
                   setEquipment([equipment[0], {}]);
-                  const filteredInventory = character[2].filter(
+                  const filteredInventory = currentInventory.filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([
-                    character[0],
-                    character[1],
-                    filteredInventory,
-                    character[3],
-                    character[4],
-                  ]);
+                  setCurrentInventory(filteredInventory);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -865,7 +847,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -879,7 +860,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -912,16 +892,10 @@ function NormalBattle() {
                 playerCurrentHP = revivalHp;
                 setPlayerHP(revivalHp);
                 setEquipment([equipment[0], {}]);
-                const filteredInventory = character[2].filter(
+                const filteredInventory = currentInventory.filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([
-                  character[0],
-                  character[1],
-                  filteredInventory,
-                  character[3],
-                  character[4],
-                ]);
+                setCurrentInventory(filteredInventory);
                 canRevive = false;
                 setHasPlayerRevived(true);
               } else {
@@ -977,16 +951,10 @@ function NormalBattle() {
                   playerCurrentHP = revivalHp;
                   setPlayerHP(revivalHp);
                   setEquipment([equipment[0], {}]);
-                  const filteredInventory = character[2].filter(
+                  const filteredInventory = currentInventory.filter(
                     (i) => i.name != "Revival Pendant",
                   );
-                  setCharacter([
-                    character[0],
-                    character[1],
-                    filteredInventory,
-                    character[3],
-                    character[4],
-                  ]);
+                  setCurrentInventory(filteredInventory);
                   canRevive = false;
                   setHasPlayerRevived(true);
                 } else {
@@ -1076,7 +1044,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1090,7 +1057,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1124,16 +1090,10 @@ function NormalBattle() {
                 playerCurrentHP = revivalHp;
                 setPlayerHP(revivalHp);
                 setEquipment([equipment[0], {}]);
-                const filteredInventory = character[2].filter(
+                const filteredInventory = currentInventory.filter(
                   (i) => i.name != "Revival Pendant",
                 );
-                setCharacter([
-                  character[0],
-                  character[1],
-                  filteredInventory,
-                  character[3],
-                  character[4],
-                ]);
+                setCurrentInventory(filteredInventory);
                 setHasPlayerRevived(true);
               } else {
                 setPlayerHP(0);
@@ -1199,7 +1159,6 @@ function NormalBattle() {
               to: "/gameOverScreen",
               search: {
                 enemies: enemiesArray,
-                playerRevived: hasPlayerRevived,
               },
               mask: {
                 to: "/game_over",
@@ -1229,7 +1188,7 @@ function NormalBattle() {
             isShopNext: character[0].isShopNext,
           },
           character[1],
-          character[2],
+          currentInventory,
           character[3],
           character[4],
         ]);
@@ -1310,16 +1269,10 @@ function NormalBattle() {
             playerCurrentHP = revivalHp;
             setPlayerHP(revivalHp);
             setEquipment([equipment[0], {}]);
-            const filteredInventory = character[2].filter(
+            const filteredInventory = currentInventory.filter(
               (i) => i.name != "Revival Pendant",
             );
-            setCharacter([
-              character[0],
-              character[1],
-              filteredInventory,
-              character[3],
-              character[4],
-            ]);
+            setCurrentInventory(filteredInventory);
             canRevive = false;
             setHasPlayerRevived(true);
             setIsPlayersTurn(true);
@@ -1345,16 +1298,10 @@ function NormalBattle() {
             playerCurrentHP = revivalHp;
             setPlayerHP(revivalHp);
             setEquipment([equipment[0], {}]);
-            const filteredInventory = character[2].filter(
+            const filteredInventory = currentInventory.filter(
               (i) => i.name != "Revival Pendant",
             );
-            setCharacter([
-              character[0],
-              character[1],
-              filteredInventory,
-              character[3],
-              character[4],
-            ]);
+            setCurrentInventory(filteredInventory);
             canRevive = false;
             setHasPlayerRevived(true);
             setIsPlayersTurn(true);
@@ -1392,7 +1339,6 @@ function NormalBattle() {
           to: "/gameOverScreen",
           search: {
             enemies: enemiesArray,
-            playerRevived: hasPlayerRevived,
           },
           mask: {
             to: "/game_over",
@@ -1418,6 +1364,32 @@ function NormalBattle() {
       setHoveredEnemy({});
     } else {
       setHoveredEnemy(enemiesArray[e.target.dataset.value]);
+    }
+  };
+
+  const handleConsumable = (name) => {
+    let updatedInventory = [...currentInventory];
+    if (name === "Regen Potion" && playerRegen < 4) {
+      const potionIndex = currentInventory.findIndex(
+        (item) => item.name === name,
+      );
+      if (currentInventory[potionIndex].quantity >= 2) {
+        const potionCount = currentInventory[potionIndex].quantity;
+        updatedInventory[potionIndex] = {
+          name: "Regen Potion",
+          type: "Consumable",
+          element: "Normal",
+          effect: "Sets HP regeneration stacks to 4 ",
+          quantity: potionCount - 1,
+          dropRate: 5,
+          class: "regen-potion",
+        };
+      } else
+        updatedInventory = updatedInventory.filter(
+          (i) => i.name != "Regen Potion",
+        );
+      setCurrentInventory(updatedInventory);
+      setPlayerRegen(4);
     }
   };
 
@@ -1594,7 +1566,7 @@ function NormalBattle() {
           inventory
         </h1>
         <section className="inventory">
-          {character[2].map((i, index) => (
+          {currentInventory.map((i, index) => (
             <div
               key={index}
               className={
@@ -1610,7 +1582,9 @@ function NormalBattle() {
                     ? setEquipment([i, equipment[1]])
                     : i.type === "Accessory" && canAct
                       ? setEquipment([equipment[0], i])
-                      : null;
+                      : i.type === "Consumable" && canAct
+                        ? handleConsumable(i.name)
+                        : null;
               }}
             >
               {/* <p className="active-item-name">{i.name}</p> */}

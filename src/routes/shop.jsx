@@ -76,11 +76,8 @@ function Shop() {
   const handleItemClick = (index) => {
     if (shopInventory[index].cost <= currentGold) {
       setCurrentGold((prevGold) => prevGold - shopInventory[index].cost);
-      const newVisibilityArray = [];
-      for (let i = 0; i < itemVisibility.length; i++) {
-        if (i == index) newVisibilityArray.push(false);
-        else newVisibilityArray.push(itemVisibility[i]);
-      }
+      const newVisibilityArray = [...itemVisibility];
+      newVisibilityArray[index] = false;
       setBoughtItems((prevItems) => [...prevItems, shopInventory[index]]);
       setUnboughtItems(unboughtItems.filter((i) => i != shopInventory[index]));
       setItemVisibility(newVisibilityArray);

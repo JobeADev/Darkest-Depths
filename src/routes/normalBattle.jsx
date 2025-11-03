@@ -1471,6 +1471,7 @@ function NormalBattle() {
             isRunningAway={isRunningAway}
             isEA={isEnemyAttacking}
             isPA={isPlayerAttacking}
+            regenNum={playerRegen}
             poisonNum={poisonDamage}
             bleedNum={bleedDamage}
             hasRevived={hasPlayerRevived}

@@ -6,6 +6,7 @@ function Player({
   isRunningAway,
   isEA,
   isPA,
+  regenNum,
   poisonNum,
   bleedNum,
   hasRevived,
@@ -47,6 +48,18 @@ function Player({
               : "player-status-section run-away"
           }
         >
+          {regenNum > 0 ? (
+            <div className="buffed-info">
+              {regenNum}{" "}
+              <span
+                className={
+                  poisonNum > 0 || bleedNum > 0
+                    ? "status-spacer regen"
+                    : "regen"
+                }
+              ></span>
+            </div>
+          ) : null}
           {poisonNum > 0 ? (
             <div className="deBuffed-info">
               {poisonNum}{" "}

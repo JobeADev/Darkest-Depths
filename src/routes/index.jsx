@@ -56,18 +56,25 @@ function Index() {
         <h2 className="tutorial_title">Tips</h2>
         <div className="tutorial_section">
           <p className="tutorial_item">
-            <span className="tutorial_icon poison"></span>
-            <span className="debuff_wrapper">Poison</span> : At the beginning of
-            every turn, where enemies are still alive, player takes hp damage
-            equivalent to current poison amount. This number then decreases by
+            <span className="tutorial_icon regen"></span>
+            <span className="debuff_wrapper">HP Regen</span> : At the beginning
+            of every Player turn (prior to Player attack), player heals hp
+            equivalent to current hp regen amount. This number then decreases by
             one
           </p>
           <p className="tutorial_item">
+            <span className="tutorial_icon poison"></span>
+            <span className="debuff_wrapper">Poison</span> : At the end of every
+            Player turn (following Player attack), where enemies are still
+            alive, player takes hp damage equivalent to current poison amount.
+            This number then decreases by one
+          </p>
+          <p className="tutorial_item">
             <span className="tutorial_icon bleed"></span>
-            <span className="debuff_wrapper">Bleed</span> : At the beginning of
-            every turn, where enemies are still alive, player takes hp damage
-            equivalent to current bleed amount multiplied by two (2x). This
-            number then decreases to 0
+            <span className="debuff_wrapper">Bleed</span> : At the end of every
+            Player turn (following Player attack), where enemies are still
+            alive, player takes hp damage equivalent to current bleed amount
+            multiplied by two (2x). This number then decreases to 0
           </p>
           <p className="tutorial_item">
             <span className="tutorial_icon tank-shield"></span>{" "}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Outlet, createRootRoute, useLocation } from "@tanstack/react-router";
 // import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ScrollToTop from "../components/scrollToTop";
 import NavBar from "../components/NavBar/NavBar";
 import Footer from "../components/Footer/Footer";
@@ -40,7 +40,7 @@ function RootComponent() {
         </EquipmentContext>
       </CharacterContext>
       {/* <TanStackRouterDevtools /> */}
-      <ReactQueryDevtools />
+      {/* <ReactQueryDevtools /> */}
     </>
   );
 }

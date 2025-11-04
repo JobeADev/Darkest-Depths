@@ -2,6 +2,15 @@
   --debuff-color: rgb(190, 57, 47);
 }
 
+@keyframes buttonHover {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
 body {
   background-color: var(--border);
 }
@@ -26,6 +35,13 @@ body {
   color: var(--secondary);
   border: 4px solid var(--primary);
   border-radius: 10px;
+  background-color: var(--primary);
+  transition: 0.4s;
+}
+
+.start-link:hover {
+  background-color: transparent;
+  animation: buttonHover 0.8s infinite alternate;
 }
 
 .tutorial_container {

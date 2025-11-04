@@ -99,7 +99,7 @@ export const DroppableItems = [
     name: "Regen Potion",
     type: "Consumable",
     element: "Normal",
-    effect: "Sets HP regeneration stacks to 4 ",
+    effect: "Sets HP regeneration stacks to 4, healing 10 HP in total overtime",
     quantity: 1,
     dropRate: 5, // this represents 95% to fail, 5% chance for success
     class: "regen-potion",

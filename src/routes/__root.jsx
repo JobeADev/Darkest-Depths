@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, createRootRoute } from "@tanstack/react-router";
+import { Outlet, createRootRoute, useLocation } from "@tanstack/react-router";
 // import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ScrollToTop from "../components/scrollToTop";
@@ -19,9 +19,10 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
+  const location = useLocation();
   const characterHook = useState([
     StartingCharacterStats,
-    0,
+    location.pathname === "/" ? 0 : 1,
     StartingItems,
     StartingShopInventory,
     StartingStatTotals,

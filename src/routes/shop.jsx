@@ -258,7 +258,7 @@ function Shop() {
                     )}
                     {i.strong ? (
                       <p className="shop-active-item-strong-against">
-                        <b className="font-change ">x</b>2 -{">"}
+                        <b className="font-change">x</b>2 -{">"}
                         <span className={`shop-item-icon ${i.strong}`} />
                       </p>
                     ) : null}

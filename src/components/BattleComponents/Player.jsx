@@ -48,35 +48,40 @@ function Player({
               : "player-status-section run-away"
           }
         >
-          {regenNum > 0 ? (
-            <div className="buffed-info">
-              {regenNum}{" "}
-              <span
-                className={
-                  poisonNum > 0 || bleedNum > 0
-                    ? "status-spacer regen"
-                    : "regen"
-                }
-              ></span>
-            </div>
-          ) : null}
-          {poisonNum > 0 ? (
-            <div className="deBuffed-info">
-              {poisonNum}{" "}
-              <span
-                className={
-                  bleedNum === 0
-                    ? "icon16x16 poison"
-                    : "status-spacer icon16x16 poison"
-                }
-              />
-            </div>
-          ) : null}
-          {bleedNum > 0 ? (
-            <div className="deBuffed-info">
-              {bleedNum} <span className="icon16x16 bleed" />
-            </div>
-          ) : null}
+          <div className="player-status-section-container">
+            {regenNum > 0 ? (
+              <div className="buffed-info">
+                {regenNum}{" "}
+                <span
+                  className={
+                    poisonNum > 0 || bleedNum > 0
+                      ? "status-spacer icon16x16 regen"
+                      : "icon16x16 regen"
+                  }
+                />
+                <p className="status_name">HP Regen</p>
+              </div>
+            ) : null}
+            {poisonNum > 0 ? (
+              <div className="deBuffed-info">
+                {poisonNum}{" "}
+                <span
+                  className={
+                    bleedNum === 0
+                      ? "icon16x16 poison"
+                      : "status-spacer icon16x16 poison"
+                  }
+                />
+                <p className="status_name">Poison</p>
+              </div>
+            ) : null}
+            {bleedNum > 0 ? (
+              <div className="deBuffed-info">
+                {bleedNum} <span className="icon16x16 bleed" />
+                <p className="status_name">Bleed</p>
+              </div>
+            ) : null}
+          </div>
         </section>
       </div>
     </div>

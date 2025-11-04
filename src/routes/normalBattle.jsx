@@ -835,11 +835,22 @@ function NormalBattle() {
           ) {
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0 && !hasRevived) {
+          if (playerCurrentHP > 0 && !hasRevived && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
         }, 4400),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+          }
+        }, 4900),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied && !notSecond) {
             hasDied = true;
@@ -1032,11 +1043,22 @@ function NormalBattle() {
           } else if (enemiesArray[second].combatStyle === "support") {
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0 && !hasRevived) {
+          if (playerCurrentHP > 0 && !hasRevived && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
         }, 2900),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+          }
+        }, 3400),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
@@ -1148,11 +1170,22 @@ function NormalBattle() {
           } else if (enemiesArray[living].combatStyle === "support") {
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0) {
+          if (playerCurrentHP > 0 && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
           }
         }, 1400),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+          }
+        }, 1900),
         setTimeout(() => {
           if (playerCurrentHP <= 0) {
             navigate({
@@ -1589,6 +1622,12 @@ function NormalBattle() {
               }}
             >
               {/* <p className="active-item-name">{i.name}</p> */}
+              {i.quantity ? (
+                <p className="consumable_count">
+                  <b className="font-change">x</b>
+                  {i.quantity}
+                </p>
+              ) : null}
             </div>
           ))}
         </section>

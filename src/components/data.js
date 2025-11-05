@@ -101,7 +101,7 @@ export const DroppableItems = [
     element: "Normal",
     effect: "Sets HP regeneration stacks to 4, healing 10 HP in total overtime",
     quantity: 1,
-    dropRate: 5, // this represents 95% to fail, 5% chance for success
+    dropRate: 8, // this represents 92% to fail, 8% chance for success
     class: "regen-potion",
   },
 ];

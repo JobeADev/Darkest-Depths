@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { CharacterContext } from "../components/contexts";
+import { DroppableItems } from "../components/data";
 import "./victoryScreen.css";
 
 export const Route = createFileRoute("/victoryScreen")({
@@ -11,6 +12,8 @@ function VictoryScreen() {
   const { gold, killCount } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [goldTotal, setGoldTotal] = useState(0);
+  // const [equipmentDrops, setEquipmentDrops] = useState([]);
+  const [consumableDrops, setConsumableDrops] = useState([]);
 
   const handleFloorChange = () => {
     if ((character[1] + 1) % 15 === 0) return character[1];
@@ -18,9 +21,10 @@ function VictoryScreen() {
   };
 
   useEffect(() => {
+    let interval;
     if (gold > 0) {
       let counter = 0;
-      const interval = setInterval(() => {
+      interval = setInterval(() => {
         if (counter === gold) {
           clearInterval(interval);
           return;
@@ -28,9 +32,53 @@ function VictoryScreen() {
         setGoldTotal((prevTotal) => prevTotal + 1);
         counter++;
       }, 50);
-      return () => clearInterval(interval);
     }
+    // const equipmentDropped = [];
+    const consumablesDropped = new Map();
+    if (character[1] > 4) {
+      for (let i = 0; i < killCount; i++) {
+        const chanceNum = Math.floor(Math.random() * 100);
+        if (chanceNum < DroppableItems[0].dropRate) {
+          if (consumablesDropped.get(DroppableItems[0])) {
+            consumablesDropped.set(
+              DroppableItems[0],
+              consumablesDropped.get(DroppableItems[0]) + 1,
+            );
+          } else consumablesDropped.set(DroppableItems[0], 1);
+        }
+      }
+    }
+    // setEquipmentDrops(equipmentDropped)
+    setConsumableDrops(consumablesDropped);
+    return () => clearInterval(interval);
   }, []);
+
+  const createNewInventory = () => {
+    consumableDrops.forEach((value, key) => {
+      const index = character[2].findIndex((i) => i.name === key.name);
+      if (index > -1) {
+        character[2][index] = {
+          name: character[2][index].name,
+          type: "Consumable",
+          element: character[2][index].element,
+          effect: character[2][index].effect,
+          quantity: character[2][index].quantity + value,
+          dropRate: character[2][index].dropRate,
+          class: character[2][index].class,
+        };
+      } else
+        character[2].push({
+          name: key.name,
+          type: "Consumable",
+          element: key.element,
+          effect: key.effect,
+          quantity: value,
+          dropRate: key.dropRate,
+          class: key.class,
+        });
+    });
+    return character[2];
+  };
 
   return (
     <div className="stage-container">
@@ -50,10 +98,14 @@ function VictoryScreen() {
                 {goldTotal}
               </span>
             </p>
-            {/* <p className="victory-screen-item">
-              <span className={`item-icon ${character[2][0].class}`}></span>
-              {character[2][0].name}
-            </p> */}
+            {Array.from(consumableDrops.entries()).map(([key, value]) => (
+              <p className="victory-screen-item" key={key.name}>
+                <b className="font-change">x</b>
+                {value}
+                <span className={`item-icon ${key.class}`}></span>
+                {key.name}
+              </p>
+            ))}
             <h2
               className="victory-screen-link-container"
               onClick={() =>
@@ -70,7 +122,7 @@ function VictoryScreen() {
                         isShopNext: true,
                       },
                       handleFloorChange(),
-                      character[2],
+                      createNewInventory(),
                       character[3],
                       {
                         totalGold: character[4].totalGold + gold,
@@ -89,7 +141,7 @@ function VictoryScreen() {
                           isShopNext: character[0].isShopNext,
                         },
                         handleFloorChange(),
-                        character[2],
+                        createNewInventory(),
                         character[3],
                         {
                           totalGold: character[4].totalGold + gold,

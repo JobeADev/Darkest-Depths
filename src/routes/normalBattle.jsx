@@ -1448,54 +1448,25 @@ function NormalBattle() {
       </button>
       <div className="stage">
         <div className="toggle-info-btns">
-          {enemyHP[0] > 0 ? (
-            <button
-              className={
-                hoveredEnemy != enemiesArray[0]
-                  ? "toggle-info-btn"
-                  : "toggle-info-btn clicked"
-              }
-              onClick={() =>
-                hoveredEnemy.name === enemiesArray[0].name
-                  ? setHoveredEnemy({})
-                  : setHoveredEnemy(enemiesArray[0])
-              }
-            >
-              enemy #1 info
-            </button>
-          ) : null}
-          {enemyHP[1] > 0 ? (
-            <button
-              className={
-                hoveredEnemy != enemiesArray[1]
-                  ? "toggle-info-btn"
-                  : "toggle-info-btn clicked"
-              }
-              onClick={() =>
-                hoveredEnemy.name === enemiesArray[1].name
-                  ? setHoveredEnemy({})
-                  : setHoveredEnemy(enemiesArray[1])
-              }
-            >
-              enemy #2 info
-            </button>
-          ) : null}
-          {enemiesArray.length === 3 && enemyHP[2] > 0 ? (
-            <button
-              className={
-                hoveredEnemy != enemiesArray[2]
-                  ? "toggle-info-btn"
-                  : "toggle-info-btn clicked"
-              }
-              onClick={() =>
-                hoveredEnemy.name === enemiesArray[2].name
-                  ? setHoveredEnemy({})
-                  : setHoveredEnemy(enemiesArray[2])
-              }
-            >
-              enemy #3 info
-            </button>
-          ) : null}
+          {enemiesArray.map((enemy, index) =>
+            enemyHP[index] > 0 ? (
+              <button
+                key={index}
+                className={
+                  hoveredEnemy != enemy
+                    ? "toggle-info-btn"
+                    : "toggle-info-btn clicked"
+                }
+                onClick={() =>
+                  hoveredEnemy.name === enemy.name
+                    ? setHoveredEnemy({})
+                    : setHoveredEnemy(enemy)
+                }
+              >
+                enemy #{index + 1} info
+              </button>
+            ) : null,
+          )}
         </div>
         <section className="combat-area">
           <Player

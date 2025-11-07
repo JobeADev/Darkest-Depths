@@ -673,12 +673,24 @@ function BossBattle() {
             resetEnemyAttacking();
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0 && !hasRevived) {
+          if (playerCurrentHP > 0 && !hasRevived && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
             setTurnCount((prevCount) => prevCount + 1);
           }
         }, 4400),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+            setTurnCount((prevCount) => prevCount + 1);
+          }
+        }, 4900),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !hasDied && !notSecond) {
             hasDied = true;
@@ -882,12 +894,24 @@ function BossBattle() {
             resetEnemyAttacking();
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0 && !hasRevived) {
+          if (playerCurrentHP > 0 && !hasRevived && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
             setTurnCount((prevCount) => prevCount + 1);
           }
         }, 2900),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+            setTurnCount((prevCount) => prevCount + 1);
+          }
+        }, 3400),
         setTimeout(() => {
           if (playerCurrentHP <= 0 && !notFirst) {
             hasDied = true;
@@ -1003,12 +1027,24 @@ function BossBattle() {
             resetEnemyAttacking();
             setIsEnemySupporting(false);
           }
-          if (playerCurrentHP > 0) {
+          if (playerCurrentHP > 0 && playerRegen === 0) {
             setIsPlayersTurn(true);
             setCanAct(true);
             setTurnCount((prevCount) => prevCount + 1);
           }
         }, 1400),
+        setTimeout(() => {
+          if (playerRegen > 0) {
+            if (playerCurrentHP + playerRegen >= character[0].maxHp)
+              playerCurrentHP = character[0].maxHp;
+            else playerCurrentHP = playerCurrentHP + playerRegen;
+            setPlayerHP(playerCurrentHP);
+            setPlayerRegen((prevRegen) => prevRegen - 1);
+            setIsPlayersTurn(true);
+            setCanAct(true);
+            setTurnCount((prevCount) => prevCount + 1);
+          }
+        }, 1900),
         setTimeout(() => {
           if (playerCurrentHP <= 0) {
             navigate({
@@ -1040,7 +1076,7 @@ function BossBattle() {
             isShopNext: character[0].isShopNext,
           },
           character[1],
-          character[2],
+          currentInventory,
           character[3],
           character[4],
         ]);
@@ -1266,6 +1302,7 @@ function BossBattle() {
             maxHp={character[0].maxHp}
             isEA={isEnemyAttacking}
             isPA={isPlayerAttacking}
+            regenNum={playerRegen}
             poisonNum={poisonDamage}
             bleedNum={bleedDamage}
             hasRevived={hasPlayerRevived}
@@ -1363,7 +1400,7 @@ function BossBattle() {
           inventory
         </h1>
         <section className="inventory">
-          {character[2].map((i, index) => (
+          {currentInventory.map((i, index) => (
             <div
               key={index}
               className={
@@ -1385,6 +1422,12 @@ function BossBattle() {
               }}
             >
               {/* <p className="active-item-name">{i.name}</p> */}
+              {i.quantity ? (
+                <p className="consumable_count">
+                  <b className="font-change">x</b>
+                  {i.quantity}
+                </p>
+              ) : null}
             </div>
           ))}
         </section>

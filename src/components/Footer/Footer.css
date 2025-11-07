@@ -57,14 +57,16 @@
 }
 
 .footer-logo {
-  height: 100%;
-  align-content: center;
+  height: 21px;
+  align-self: center;
+  margin-top: 7px;
   /* padding-top: 13px; */
 }
 
 .footer-logo-text {
   font-size: 20px;
   color: var(--secondary);
+  padding-top: 5px;
 }
 
 .footer-logo-text:hover {

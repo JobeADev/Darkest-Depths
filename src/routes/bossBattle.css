@@ -7,7 +7,48 @@
   }
 }
 
-.enemyChar:hover .fa-caret-down.boss-caret {
+.enemyBossChar.secondEnemy.beingDamaged {
+  animation: middleEnemyShake 0.25s 4 alternate;
+}
+
+.enemyBossChar {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  /* background-position: bottom; */
+  height: 167px;
+  width: 192px;
+  cursor: pointer;
+  margin-top: -62px;
+}
+
+.bossHP {
+  position: absolute;
+  color: var(--hp-color);
+  bottom: -50px;
+  /* text-shadow: 0px 0px 3px white; */
+  background-color: var(--hp-bg-color);
+  padding: 4px 7px 0px 5px;
+  margin-left: 7px;
+  border-radius: 30px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.enemyBossChar .fa-caret-down {
+  display: none;
+}
+
+.enemyBossChar:hover {
+  opacity: 0.8;
+}
+
+.enemyBossChar:hover .fa-caret-down.boss-caret {
+  font-size: 22px;
+  display: initial;
+  position: absolute;
+  color: var(--caret-down-color);
+  opacity: 0.7;
   top: -15px;
   margin-left: 5px;
 }
@@ -25,7 +66,7 @@
   display: none;
 }
 
-.necromancer {
+/* .necromancer {
   background-image: url(../../Enemies/Necromancer-with-pause-4fps-192x192.gif);
 }
 
@@ -35,7 +76,7 @@
 
 .skeleton {
   background-image: url(../../Enemies/Skeleton-with-pause-4fps.gif);
-}
+} */
 
 .boss {
   background-image: url(../../Icons/Boss-Icon-16x16.png);

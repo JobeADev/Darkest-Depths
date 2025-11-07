@@ -1,3 +1,19 @@
+import {
+  Zombie,
+  Spider,
+  HellHound,
+  Thief,
+  ElderSpider,
+  Draugr,
+  ZombieShaman,
+  Brigand,
+  Garmr,
+  Phantom,
+  Skeleton,
+  Wight,
+  Necromancer,
+} from "../images/ImgExports";
+
 export const FloorInfoArray = [
   "combat",
   "combat",
@@ -110,6 +126,7 @@ export const EnemiesList = [
   {
     floors: "early",
     name: "Zombie",
+    img: Zombie,
     type: "Undead",
     weakness: "Holy",
     hp: 4,
@@ -122,6 +139,7 @@ export const EnemiesList = [
   {
     floors: "early",
     name: "Spider",
+    img: Spider,
     type: "Beast",
     weakness: "Fire",
     hp: 2,
@@ -135,6 +153,7 @@ export const EnemiesList = [
   {
     floors: "early",
     name: "Hell Hound",
+    img: HellHound,
     type: "Beast",
     weakness: "Fire",
     hp: 2,
@@ -147,6 +166,7 @@ export const EnemiesList = [
   {
     floors: "early-mid",
     name: "Thief",
+    img: Thief,
     type: "Human",
     weakness: "Electric",
     hp: 2,
@@ -160,6 +180,7 @@ export const EnemiesList = [
   {
     floors: "mid",
     name: "Draugr",
+    img: Draugr,
     type: "Undead",
     weakness: "Holy",
     hp: 6,
@@ -173,6 +194,7 @@ export const EnemiesList = [
   {
     floors: "mid",
     name: "Elder Spider",
+    img: ElderSpider,
     type: "Beast",
     weakness: "Fire",
     hp: 4,
@@ -186,6 +208,7 @@ export const EnemiesList = [
   {
     floors: "mid-late",
     name: "Zombie Shaman",
+    img: ZombieShaman,
     type: "Undead",
     weakness: "Holy",
     hp: 3,
@@ -200,6 +223,7 @@ export const EnemiesList = [
   {
     floors: "mid-late",
     name: "Brigand",
+    img: Brigand,
     type: "Human",
     weakness: "Electric",
     hp: 4,
@@ -212,6 +236,7 @@ export const EnemiesList = [
   {
     floors: "late",
     name: "Phantom",
+    img: Phantom,
     type: "Undead",
     weakness: "Holy",
     hp: 6,
@@ -225,6 +250,7 @@ export const EnemiesList = [
   {
     floors: "late",
     name: "Garmr",
+    img: Garmr,
     type: "Beast",
     weakness: "Fire",
     hp: 6,
@@ -244,6 +270,7 @@ export const BossEnemiesList = [
   [
     {
       name: "Wight",
+      img: Wight,
       type: "Undead",
       weakness: "Holy",
       hp: 6,
@@ -256,6 +283,7 @@ export const BossEnemiesList = [
     },
     {
       name: "Necromancer",
+      img: Necromancer,
       type: "Undead",
       weakness: "Holy",
       hp: 50,
@@ -270,6 +298,7 @@ export const BossEnemiesList = [
     },
     {
       name: "Skeleton",
+      img: Skeleton,
       type: "Undead",
       weakness: "Holy",
       hp: 4,

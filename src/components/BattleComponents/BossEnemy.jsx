@@ -29,20 +29,25 @@ function Enemy({
       <div
         className={
           isPA
-            ? `enemyChar ${position}Enemy beingDamaged ${enemy.class}`
+            ? `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy beingDamaged`
             : isEA ||
                 ((enemy.combatStyle === "support" ||
                   enemy.combatStyle === "boss") &&
                   isES)
-              ? `enemyChar ${position}Enemy isAttacking ${enemy.class}`
-              : `enemyChar ${position}Enemy ${enemy.class}`
+              ? `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy isAttacking`
+              : `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy`
         }
-        onClick={() =>
-          canAct && hp > 0 ? handleTurn(enemyNum, enemy.weakness) : null
-        }
-        onContextMenu={hp > 0 ? handleRightClick : null}
-        data-value={enemyNum - 1}
       >
+        <img
+          src={enemy.img}
+          height={enemy.name === "Necromancer" ? "192px" : null}
+          width={enemy.name === "Necromancer" ? "192px" : null}
+          onClick={() =>
+            canAct && hp > 0 ? handleTurn(enemyNum, enemy.weakness) : null
+          }
+          onContextMenu={hp > 0 ? handleRightClick : null}
+          data-value={enemyNum - 1}
+        />
         <i
           className={
             position === "second"
@@ -50,7 +55,7 @@ function Enemy({
               : "fa-solid fa-caret-down"
           }
         />
-        <span className="enemyHP">
+        <span className={enemy.combatStyle !== "boss" ? "enemyHP" : "bossHP"}>
           {hp}
           {/* <span className="damage-preview">-{equipment[0].damage}</span> */}{" "}
           / {enemy.hp}

@@ -16,17 +16,20 @@ function Enemy({
       <div
         className={
           isPA
-            ? `enemyChar ${position}Enemy beingDamaged ${enemy.class}`
+            ? `enemyChar ${position}Enemy beingDamaged`
             : isEA || (enemy.combatStyle === "support" && isES)
-              ? `enemyChar ${position}Enemy isAttacking ${enemy.class}`
-              : `enemyChar ${position}Enemy ${enemy.class}`
+              ? `enemyChar ${position}Enemy isAttacking`
+              : `enemyChar ${position}Enemy`
         }
-        onClick={() =>
-          canAct && hp > 0 ? handleTurn(enemyNum, enemy.weakness) : null
-        }
-        onContextMenu={hp > 0 ? handleRightClick : null}
-        data-value={enemyNum - 1}
       >
+        <img
+          src={enemy.img}
+          onClick={() =>
+            canAct && hp > 0 ? handleTurn(enemyNum, enemy.weakness) : null
+          }
+          onContextMenu={hp > 0 ? handleRightClick : null}
+          data-value={enemyNum - 1}
+        />
         <i className="fa-solid fa-caret-down" />
         <span className="enemyHP">
           {hp}

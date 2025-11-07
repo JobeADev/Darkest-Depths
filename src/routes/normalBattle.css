@@ -9,7 +9,7 @@
 }
 
 /* enemy images */
-.zombie {
+/* .zombie {
   background-image: url(../../Enemies/Zombie-with-pause-4fps.gif);
 }
 
@@ -47,7 +47,7 @@
 
 .garmr {
   background-image: url(../../Enemies/Garmr-with-pause-4fps.gif);
-}
+} */
 
 /* weapon/item images */
 .dull-sword {
@@ -387,7 +387,7 @@
   display: flex;
   position: relative;
   justify-content: center;
-  background-image: url(../../Player/Knight-with-pause-4fps.gif);
+  /* background-image: url(../../Player/Knight-with-pause-4fps.gif); */
   height: 160px;
   width: 160px;
   align-self: center;
@@ -399,10 +399,10 @@
   position: relative;
   justify-content: center;
   background-position: bottom;
-  height: 150px;
+  height: 160px;
   width: 160px;
   cursor: pointer;
-  margin-top: -45px;
+  margin-top: -55px;
 }
 
 .dead .enemyChar {
@@ -445,7 +445,7 @@
   position: absolute;
   color: var(--caret-down-color);
   opacity: 0.7;
-  top: 15px;
+  top: 25px;
   /* left: 72px; */
 }
 
@@ -467,6 +467,7 @@
   background-color: var(--hp-bg-color);
   padding: 4px 7px 0px 5px;
   border-radius: 30px;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -596,6 +597,7 @@
   color: var(--secondary);
   text-shadow: var(--text-shadow);
   font-size: 0.95em;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -662,6 +664,7 @@
   text-align: center;
   font-size: 28px;
   margin-bottom: 5px;
+  -webkit-user-select: none;
   user-select: none;
 }
 

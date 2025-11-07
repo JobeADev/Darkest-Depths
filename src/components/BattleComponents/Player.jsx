@@ -1,4 +1,4 @@
-// import KnightGif from "../../../public/Knight-with-pause-4fps.gif";
+import { Knight } from "../../images/ImgExports";
 
 function Player({
   hp,
@@ -30,6 +30,7 @@ function Player({
               : "playerChar"
         }
       >
+        <img src={Knight} />
         {hasRevived ? <span className="halo" /> : null}
         <span className={!isRunningAway ? "playerHP" : "playerHP run-away"}>
           <span

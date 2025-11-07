@@ -1,3 +1,5 @@
+// TODO: combine normalBattle and bossBattle components.
+
 import { useState, useEffect, useContext, useRef } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { CharacterContext, EquipmentContext } from "../components/contexts";

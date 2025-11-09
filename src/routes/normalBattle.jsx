@@ -1490,6 +1490,8 @@ function NormalBattle() {
                   buffNum={enemyBuffedDamage.current[index]}
                   position={pos}
                   enemyNum={index + 1}
+                  playerDamage={equipment[0].damage}
+                  isWeak={enemiesArray[index].weakness === equipment[0].element}
                   isPA={isPlayerAttacking[index]}
                   isEA={isEnemyAttacking[index]}
                   isES={isEnemySupporting}

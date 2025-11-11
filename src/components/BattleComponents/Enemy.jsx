@@ -35,13 +35,13 @@ function Enemy({
         <i className="fa-solid fa-caret-down" />
         <span className="enemyHP">
           {hp}
-          <span className="damage-preview">
+          {/* <span className="damage-preview">
             {isWeak && hp > 0
               ? `- ${playerDamage * 2}`
               : hp > 0
                 ? `- ${playerDamage}`
                 : null}
-          </span>{" "}
+          </span>{" "} */}{" "}
           / {enemy.hp}
         </span>
         <section className="enemy-status-section">

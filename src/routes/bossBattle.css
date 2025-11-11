@@ -22,6 +22,10 @@
   margin-top: -62px;
 }
 
+.enemyBossChar:hover .damage-preview {
+  display: initial;
+}
+
 .bossHP {
   position: absolute;
   color: var(--hp-color);

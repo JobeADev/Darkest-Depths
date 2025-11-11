@@ -59,13 +59,13 @@ function Enemy({
         />
         <span className={enemy.combatStyle !== "boss" ? "enemyHP" : "bossHP"}>
           {hp}
-          <span className="damage-preview">
+          {/* <span className="damage-preview">
             {isWeak && hp > 0
               ? `- ${playerDamage * 2}`
               : hp > 0
                 ? `- ${playerDamage}`
                 : null}
-          </span>{" "}
+          </span>{" "} */}{" "}
           / {enemy.hp}
         </span>
         <section className="enemy-status-section">

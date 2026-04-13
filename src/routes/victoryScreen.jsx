@@ -35,7 +35,7 @@ function VictoryScreen() {
     }
     // const equipmentDropped = [];
     const consumablesDropped = new Map();
-    if (character[1] > 4) {
+    if (character[1] > 4 && character[1] < 15) {
       for (let i = 0; i < killCount; i++) {
         const chanceNum = Math.floor(Math.random() * 100);
         if (chanceNum < DroppableItems[0].dropRate) {

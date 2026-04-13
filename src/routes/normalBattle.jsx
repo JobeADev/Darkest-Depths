@@ -1412,7 +1412,8 @@ function NormalBattle() {
           name: "Regen Potion",
           type: "Consumable",
           element: "Normal",
-          effect: "Sets HP regeneration stacks to 4 ",
+          effect:
+            "Sets HP regeneration stacks to 4, healing 10 HP in total overtime",
           quantity: potionCount - 1,
           dropRate: 5,
           class: "regen-potion",

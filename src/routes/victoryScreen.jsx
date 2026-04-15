@@ -9,7 +9,7 @@ export const Route = createFileRoute("/victoryScreen")({
 });
 
 function VictoryScreen() {
-  const { gold, killCount } = Route.useSearch();
+  const { gold, killCount, bossName } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [goldTotal, setGoldTotal] = useState(0);
   // const [equipmentDrops, setEquipmentDrops] = useState([]);
@@ -165,6 +165,7 @@ function VictoryScreen() {
                       ? "/shop"
                       : "/normalBattle"
                 }
+                search={character[1] === 15 ? { bossName: bossName } : null}
                 mask={
                   (character[1] + 1) % 16 === 0 || character[1] % 16 === 0
                     ? {

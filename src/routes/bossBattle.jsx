@@ -1087,6 +1087,7 @@ function BossBattle() {
           search: {
             gold: goldDropped.current,
             killCount: enemiesKilled.current,
+            bossName: enemiesArray[1].name,
           },
           mask: {
             to: "/boss",

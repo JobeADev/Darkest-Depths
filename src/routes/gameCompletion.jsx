@@ -16,6 +16,7 @@ export const Route = createFileRoute("/gameCompletion")({
 });
 
 function GameCompletion() {
+  const { bossName } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [, setEquipment] = useContext(EquipmentContext);
 
@@ -33,7 +34,7 @@ function GameCompletion() {
   return (
     <div className="game-completion-container">
       <header className="game-completion-header">
-        <h1>you have defeated the Necromancer and finished the game!</h1>
+        <h1>you have defeated the {bossName} and finished the game!</h1>
       </header>
       <div className="completion-screen-sheet-container">
         <div className="completion-screen-sheet">

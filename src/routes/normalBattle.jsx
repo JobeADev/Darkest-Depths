@@ -1242,7 +1242,8 @@ function NormalBattle() {
 
   function handleTurn(number, enemyWeakness) {
     let timer;
-    // let playerTurnTiming = 900;
+    let playerTurnTiming1 = 900;
+    let playerTurnTiming2 = 3900;
     let playerCurrentHP = playerHP;
     let enemyCurrentHP = enemyHP;
     let canRevive = false;
@@ -1268,14 +1269,16 @@ function NormalBattle() {
       (enemyCurrentHP[0] > 0 || enemyCurrentHP[1] > 0 || enemyCurrentHP[2] > 0)
     ) {
       playerCurrentHP = playerCurrentHP - poisonDamage;
-      // playerTurnTiming = 1100;
+      playerTurnTiming1 = 1100;
+      playerTurnTiming2 = 4100;
     }
     if (
       bleedDamage > 0 &&
       (enemyCurrentHP[0] > 0 || enemyCurrentHP[1] > 0 || enemyCurrentHP[2] > 0)
     ) {
       playerCurrentHP = playerCurrentHP - bleedDamage * 2;
-      // playerTurnTiming = 1100;
+      playerTurnTiming1 = 1100;
+      playerTurnTiming2 = 4100;
     }
     timer = setTimeout(() => {
       resetEnemyAttacked();
@@ -1365,7 +1368,7 @@ function NormalBattle() {
           canRevive,
           hasRevived,
         );
-    }, 900);
+    }, playerTurnTiming1);
     setTimeout(() => {
       if (playerCurrentHP <= 0) {
         navigate({
@@ -1378,7 +1381,7 @@ function NormalBattle() {
           },
         });
       }
-    }, 3900);
+    }, playerTurnTiming2);
 
     handleBattleOver(enemyCurrentHP, runAwayCheck);
 

@@ -697,10 +697,12 @@
 
 .inventory-item.disabled:hover {
   cursor: initial;
+  opacity: 0.3;
 }
 
 .inventory-item:hover {
   cursor: pointer;
+  opacity: 0.8;
 }
 
 .enemy-info-title,

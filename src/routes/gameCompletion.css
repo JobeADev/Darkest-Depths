@@ -31,6 +31,11 @@
   border-radius: 20px;
 }
 
+.inventory-item.completion-screen:hover {
+  cursor: initial;
+  opacity: initial;
+}
+
 .stat-section {
   display: flex;
   justify-content: center;

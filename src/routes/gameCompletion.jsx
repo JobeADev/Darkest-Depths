@@ -43,7 +43,10 @@ function GameCompletion() {
             <p className="stat-title">inventory:</p>
             <section className="stat-section-inventory">
               {character[2].map((i, index) => (
-                <div key={index} className={`inventory-item ${i.class}`}>
+                <div
+                  key={index}
+                  className={`inventory-item ${i.class} completion-screen`}
+                >
                   {/* <p className="active-item-name">{i.name}</p> */}
                 </div>
               ))}

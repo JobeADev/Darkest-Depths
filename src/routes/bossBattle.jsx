@@ -1409,9 +1409,13 @@ function BossBattle() {
             <div
               key={index}
               className={
-                canAct
+                canAct && i.type === "Weapon" && i.name !== equipment[0].name
                   ? `inventory-item ${i.class}`
-                  : `inventory-item disabled ${i.class}`
+                  : canAct &&
+                      i.type === "Accessory" &&
+                      i.name !== equipment[1].name
+                    ? `inventory-item ${i.class}`
+                    : `inventory-item disabled ${i.class}`
               }
               onClick={() => {
                 (i.type === "Weapon" && i.name === equipment[0].name) ||

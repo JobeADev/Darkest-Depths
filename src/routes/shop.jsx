@@ -177,6 +177,7 @@ function Shop() {
                     maxHp: currentMaxHp,
                     gold: currentGold,
                     hasRevived: character[0].hasRevived,
+                    equipmentInfoToggle: character[0].equipmentInfoToggle,
                     isFloorCompleted: character[0].isFloorCompleted,
                     isShopNext: false,
                   },

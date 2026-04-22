@@ -38,6 +38,7 @@ export const StartingCharacterStats = {
   maxHp: 30,
   gold: 50,
   hasRevived: false,
+  equipmentInfoToggle: false,
   isFloorCompleted: false,
   isShopNext: false,
 };

@@ -47,6 +47,9 @@ function BossBattle() {
   const [hasPlayerRevived, setHasPlayerRevived] = useState(
     character[0].hasRevived,
   );
+  const [infoToggle, setInfoToggle] = useState(
+    character[0].equipmentInfoToggle,
+  );
   const tankFailPercent = 6; // this represents 70% to fail, 30% chance for success
   const bleedFailPercent = 6; // this represents 70% to fail, 30% chance for success
 
@@ -1074,6 +1077,7 @@ function BossBattle() {
             maxHp: character[0].maxHp,
             gold: character[0].gold,
             hasRevived: hasPlayerRevived,
+            equipmentInfoToggle: infoToggle,
             isFloorCompleted: true,
             isShopNext: character[0].isShopNext,
           },
@@ -1339,22 +1343,49 @@ function BossBattle() {
         </section>
       </div>
       <div className="inventory-container">
+        <button
+          className="equipment-info-toggle-btn"
+          onClick={() => (canAct ? setInfoToggle(!infoToggle) : null)}
+          disabled={!canAct}
+        >
+          info toggle
+        </button>
         <section className="active-items">
           <div className={`active-item ${equipment[0].class}`}>
             <div className="active-item-portrait-area">
-              <p className="active-item-name">{equipment[0].name}</p>
+              <p
+                className={
+                  infoToggle ? "active-item-name toggled" : "active-item-name"
+                }
+              >
+                {equipment[0].name}
+              </p>
               {equipment[0].element != "Normal" ? (
                 <span
-                  className={`weakness-icon ${equipment[0].element.toLowerCase()}`}
+                  className={
+                    infoToggle
+                      ? `weakness-icon ${equipment[0].element.toLowerCase()} toggled`
+                      : `weakness-icon ${equipment[0].element.toLowerCase()}`
+                  }
                 />
               ) : null}
             </div>
-            <p className="active-item-damage">
+            <p
+              className={
+                infoToggle ? "active-item-damage toggled" : "active-item-damage"
+              }
+            >
               damage:{" "}
               <span className="active-item-text">{equipment[0].damage}</span>
             </p>
             {equipment[0].strong ? (
-              <p className="active-item-strong-against">
+              <p
+                className={
+                  infoToggle
+                    ? "active-item-strong-against toggled"
+                    : "active-item-strong-against"
+                }
+              >
                 <b className="font-change">x</b>2 -{">"}
                 <span className={`type-icon ${equipment[0].strong}`} />
               </p>
@@ -1363,18 +1394,32 @@ function BossBattle() {
           {equipment[1].name ? (
             <div className={`active-item ${equipment[1].class}`}>
               <div className="active-item-portrait-area">
+                <p
+                  className={
+                    infoToggle ? "active-item-name toggled" : "active-item-name"
+                  }
+                >
+                  {equipment[1].name}
+                </p>
                 {equipment[1].element != "Normal" ? (
                   <span
-                    className={`weakness-icon ${equipment[1].element.toLowerCase()}`}
+                    className={
+                      infoToggle
+                        ? `weakness-icon ${equipment[1].element.toLowerCase()} toggled`
+                        : `weakness-icon ${equipment[1].element.toLowerCase()}`
+                    }
                   />
                 ) : null}
-                <p className="active-item-name">{equipment[1].name}</p>
               </div>
               <p
                 className={
-                  equipment[1].effect.length < 18
-                    ? "active-item-effect"
-                    : "active-item-effect  xl"
+                  equipment[1].effect.length < 18 && infoToggle
+                    ? "active-item-effect toggled"
+                    : equipment[1].effect.length < 18
+                      ? "active-item-effect"
+                      : infoToggle
+                        ? "active-item-effect  xl toggled"
+                        : "active-item-effect  xl"
                 }
               >
                 effect:{" "}
@@ -1382,9 +1427,13 @@ function BossBattle() {
               </p>
               <p
                 className={
-                  equipment[1].effect.length < 18
-                    ? "active-item-durability"
-                    : "active-item-durability xl"
+                  equipment[1].effect.length < 18 && infoToggle
+                    ? "active-item-durability toggled"
+                    : equipment[1].effect.length < 18
+                      ? "active-item-durability"
+                      : infoToggle
+                        ? "active-item-durability  xl toggled"
+                        : "active-item-durability  xl"
                 }
               >
                 durability:{" "}

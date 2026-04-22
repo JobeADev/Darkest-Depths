@@ -360,6 +360,14 @@
   background-color: var(--enemy-color);
 }
 
+.equipment-info-toggle-btn {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  left: -100px;
+  bottom: 160px;
+}
+
 .stage {
   position: relative;
   flex-direction: column;
@@ -601,6 +609,14 @@
   user-select: none;
 }
 
+.active-item-name.toggled,
+.active-item-damage.toggled,
+.active-item-strong-against.toggled,
+.active-item-effect.toggled,
+.active-item-durability.toggled {
+  display: initial;
+}
+
 .active-item:hover .active-item-name,
 .inventory-item:hover .active-item-name,
 .active-item:hover .active-item-damage,
@@ -767,6 +783,10 @@
   background-size: contain;
   bottom: 2px;
   right: 2px;
+}
+
+.weakness-icon.toggled {
+  display: inline-block;
 }
 
 .active-item:hover .weakness-icon {

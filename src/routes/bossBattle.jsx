@@ -50,8 +50,8 @@ function BossBattle() {
   const [infoToggle, setInfoToggle] = useState(
     character[0].equipmentInfoToggle,
   );
-  const tankFailPercent = 6; // this represents 70% to fail, 30% chance for success
-  const bleedFailPercent = 6; // this represents 70% to fail, 30% chance for success
+  const tankFailPercent = 30; // this represents 70% to fail, 30% chance for success
+  const bleedFailPercent = 30; // this represents 70% to fail, 30% chance for success
 
   useEffect(() => {
     const turnOrder = [
@@ -269,7 +269,7 @@ function BossBattle() {
   const handlePlayerAttack = (enemyCurrentHP, number, enemyWeakness) => {
     let strongAgainst = 0;
     let isGuarded = false;
-    const guardRoll = Math.floor(Math.random() * 10);
+    const guardRoll = Math.floor(Math.random() * 100);
     if (enemyWeakness === equipment[0].element) {
       strongAgainst = equipment[0].damage;
     }
@@ -292,7 +292,7 @@ function BossBattle() {
       }
       setEnemyHP([enemyCurrentHP[0], enemyHP[1], enemyHP[2]]);
     } else if (number === 2 && enemyCurrentHP[1] > 0) {
-      if (guardRoll > tankFailPercent) {
+      if (guardRoll < tankFailPercent) {
         if (enemiesArray[0].combatStyle === "tank" && enemyCurrentHP[0] > 0) {
           isGuarded = true;
           if (enemiesArray[0].weakness != equipment[0].element)
@@ -338,7 +338,7 @@ function BossBattle() {
         setEnemyHP([enemyHP[0], enemyCurrentHP[1], enemyHP[2]]);
       }
     } else if (number === 3 && enemyCurrentHP[2] > 0) {
-      if (guardRoll > tankFailPercent) {
+      if (guardRoll < tankFailPercent) {
         if (enemiesArray[0].combatStyle === "tank" && enemyCurrentHP[0] > 0) {
           isGuarded = true;
           if (enemiesArray[0].weakness != equipment[0].element)
@@ -436,8 +436,8 @@ function BossBattle() {
               }
             } else {
               if (enemiesArray[enemyTurnOrder.current[0]].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(
@@ -512,8 +512,8 @@ function BossBattle() {
                 }
               } else {
                 if (enemiesArray[enemyTurnOrder.current[1]].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -599,8 +599,8 @@ function BossBattle() {
                 }
               } else {
                 if (enemiesArray[enemyTurnOrder.current[2]].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -756,8 +756,8 @@ function BossBattle() {
               }
             } else {
               if (enemiesArray[first].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(
@@ -825,8 +825,8 @@ function BossBattle() {
                 }
               } else {
                 if (enemiesArray[second].skill === "Bleed") {
-                  const bleedRoll = Math.floor(Math.random() * 10);
-                  if (bleedRoll > bleedFailPercent)
+                  const bleedRoll = Math.floor(Math.random() * 100);
+                  if (bleedRoll < bleedFailPercent)
                     setBleedDamage((previousBleedNum) => previousBleedNum + 1);
                 }
                 setPlayerHP(
@@ -977,8 +977,8 @@ function BossBattle() {
               }
             } else {
               if (enemiesArray[living].skill === "Bleed") {
-                const bleedRoll = Math.floor(Math.random() * 10);
-                if (bleedRoll > bleedFailPercent)
+                const bleedRoll = Math.floor(Math.random() * 100);
+                if (bleedRoll < bleedFailPercent)
                   setBleedDamage((previousBleedNum) => previousBleedNum + 1);
               }
               setPlayerHP(

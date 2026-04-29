@@ -65,12 +65,12 @@ export default function NavBar() {
                       : "progress-bar-segment"
                 }
               >
-                <p className="floor-text">{f}</p>
                 {index + 1 === character[1] ? (
                   <span className="floor-pointer">
                     <i className="fa-solid fa-caret-down" />
                   </span>
                 ) : null}
+                <p className="floor-text">{f}</p>
                 {f != "combat-shop" ? (
                   <span
                     className={

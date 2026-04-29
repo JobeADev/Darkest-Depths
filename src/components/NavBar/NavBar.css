@@ -92,8 +92,45 @@
   display: flex;
   border: solid 2px var(--secondary);
   border-radius: 20px;
-  width: 68%;
+  width: 69%;
   height: 38px;
+}
+
+.floor-text {
+  transition: 0.2s ease-in-out;
+  opacity: 0;
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  color: var(--secondary);
+  text-shadow: var(--text-shadow);
+  font-size: 0.68em;
+  height: 100%;
+  width: 100%;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.progress-bar-segment:hover .floor-text {
+  opacity: 0.8;
+}
+
+.progress-bar-segment:hover .header-icon,
+.progress-bar-segment:hover .pre-boss-icons {
+  opacity: 0.15;
+}
+
+.progress-bar-segment:hover.current-floor .floor-text,
+.progress-bar-segment:hover.completed-floor .floor-text {
+  opacity: 0;
+}
+
+.progress-bar-segment:hover.current-floor .header-icon,
+.progress-bar-segment:hover.current-floor .pre-boss-icons,
+.progress-bar-segment:hover.completed-floor .header-icon,
+.progress-bar-segment:hover.completed-floor .pre-boss-icons {
+  opacity: 1;
 }
 
 .progress-bar-segment {
@@ -146,6 +183,7 @@
   width: 16px;
   top: 25%;
   left: 42%;
+  transition: 0.2s ease-in-out;
 }
 
 .pre-boss-icons {
@@ -155,6 +193,7 @@
   left: 20%;
   font-size: 24px;
   color: var(--secondary);
+  transition: 0.2s ease-in-out;
 }
 
 .pre-boss-icons .alt-header-icon:first-of-type {

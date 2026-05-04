@@ -11,6 +11,8 @@ import phantom from "./Enemies/Phantom-with-pause-4fps.gif";
 import skeleton from "./Enemies/Skeleton-with-pause-4fps.gif";
 import wight from "./Enemies/Wight-with-pause-4fps.gif";
 import necromancer from "./Enemies/Necromancer-with-pause-4fps-192x192.gif";
+import centaurChieftain from "./Enemies/Centaur-Chieftain-with-pause-4fps-192x192.gif";
+import centaurQueen from "./Enemies/Centaur-Queen-with-pause-4fps-192x192.gif";
 export const Zombie = zombie;
 export const Spider = spider;
 export const HellHound = hellHound;
@@ -24,6 +26,8 @@ export const Phantom = phantom;
 export const Skeleton = skeleton;
 export const Wight = wight;
 export const Necromancer = necromancer;
+export const CentaurChieftain = centaurChieftain;
+export const CentaurQueen = centaurQueen;
 
 import knight from "./Player/Knight-with-pause-4fps.gif";
 export const Knight = knight;

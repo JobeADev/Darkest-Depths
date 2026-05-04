@@ -97,7 +97,7 @@
 }
 
 .floor-text {
-  transition: 0.2s ease-in-out;
+  transition: 0.15s ease-in-out;
   opacity: 0;
   display: flex;
   position: absolute;
@@ -183,7 +183,7 @@
   width: 16px;
   top: 25%;
   left: 42%;
-  transition: 0.2s ease-in-out;
+  transition: 0.15s ease-in-out;
 }
 
 .pre-boss-icons {
@@ -193,7 +193,7 @@
   left: 20%;
   font-size: 24px;
   color: var(--secondary);
-  transition: 0.2s ease-in-out;
+  transition: 0.15s ease-in-out;
 }
 
 .pre-boss-icons .alt-header-icon:first-of-type {

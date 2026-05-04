@@ -12,6 +12,8 @@ import {
   Skeleton,
   Wight,
   Necromancer,
+  CentaurChieftain,
+  CentaurQueen,
 } from "../images/ImgExports";
 
 export const FloorInfoArray = [
@@ -281,6 +283,7 @@ export const BossEnemiesList = [
       gold: 15,
       class: "wight",
       combatStyle: "tank",
+      bossArrayName: "Necromancer",
     },
     {
       name: "Necromancer",
@@ -309,6 +312,42 @@ export const BossEnemiesList = [
       gold: 15,
       class: "skeleton",
       combatStyle: "attacker",
+    },
+  ],
+  [
+    {
+      name: "Centaur Chieftain",
+      img: CentaurChieftain,
+      type: "Beast",
+      weakness: "Fire",
+      hp: 30,
+      damage: 3,
+      speed: 4,
+      skill: "Bleed",
+      skill2: "Revenge",
+      gold: 50,
+      class: "centaurChieftain",
+      combatStyle: "boss",
+      bossArrayName: "Centaur Royalty",
+    },
+    {
+      name: "Blank",
+      speed: 0,
+    },
+    {
+      name: "Centaur Queen",
+      img: CentaurQueen,
+      type: "Beast",
+      weakness: "Fire",
+      hp: 20,
+      damage: 1,
+      speed: 2,
+      skill: "Revenge",
+      heal: 2,
+      buff: 1,
+      gold: 50,
+      class: "centaurQueen",
+      combatStyle: "boss",
     },
   ],
 ];

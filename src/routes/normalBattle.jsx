@@ -306,7 +306,11 @@ function NormalBattle() {
           index: enemyTurnOrder.current[0],
           hp:
             enemyCurrentHP[enemyTurnOrder.current[0]] +
-            enemiesArray[enemyTurnOrder.current[2]].heal,
+              enemiesArray[enemyTurnOrder.current[2]].heal <=
+            enemiesArray[enemyTurnOrder.current[0]].hp
+              ? enemyCurrentHP[enemyTurnOrder.current[0]] +
+                enemiesArray[enemyTurnOrder.current[2]].heal
+              : enemiesArray[enemyTurnOrder.current[0]].hp,
         },
         {
           index: enemyTurnOrder.current[1],
@@ -332,7 +336,11 @@ function NormalBattle() {
           index: enemyTurnOrder.current[1],
           hp:
             enemyCurrentHP[enemyTurnOrder.current[1]] +
-            enemiesArray[enemyTurnOrder.current[2]].heal,
+              enemiesArray[enemyTurnOrder.current[2]].heal <=
+            enemiesArray[enemyTurnOrder.current[1]].hp
+              ? enemyCurrentHP[enemyTurnOrder.current[1]] +
+                enemiesArray[enemyTurnOrder.current[2]].heal
+              : enemiesArray[enemyTurnOrder.current[1]].hp,
         },
         {
           index: enemyTurnOrder.current[2],
@@ -1000,7 +1008,11 @@ function NormalBattle() {
                 const sortedArrayOfEnemyHP = [
                   {
                     index: first,
-                    hp: enemyCurrentHP[first] + enemiesArray[second].heal,
+                    hp:
+                      enemyCurrentHP[first] + enemiesArray[second].heal <=
+                      enemiesArray[first].hp
+                        ? enemyCurrentHP[first] + enemiesArray[second].heal
+                        : enemiesArray[first].hp,
                   },
                   {
                     index: second,
@@ -1636,7 +1648,15 @@ function NormalBattle() {
                       i.type === "Accessory" &&
                       i.name !== equipment[1].name
                     ? `inventory-item ${i.class}`
-                    : `inventory-item disabled ${i.class}`
+                    : canAct &&
+                        i.type === "Consumable" &&
+                        i.name !== "Regen Potion"
+                      ? `inventory-item ${i.class}`
+                      : canAct &&
+                          i.name === "Regen Potion" &&
+                          playerHP !== character[0].maxHp
+                        ? `inventory-item ${i.class}`
+                        : `inventory-item disabled ${i.class}`
               }
               onClick={() => {
                 (i.type === "Weapon" && i.name === equipment[0].name) ||

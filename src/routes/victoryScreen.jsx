@@ -102,7 +102,7 @@ function VictoryScreen() {
               <p className="victory-screen-item" key={key.name}>
                 <b className="font-change">x</b>
                 {value}
-                <span className={`item-icon ${key.class}`}></span>
+                <span className={`item-icon ${key.class}`} />
                 {key.name}
               </p>
             ))}

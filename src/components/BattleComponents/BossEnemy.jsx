@@ -11,6 +11,7 @@ function Enemy({
   isPA,
   isEA,
   isES,
+  revenge,
   canAct,
   handleTurn,
   handleRightClick,
@@ -33,8 +34,11 @@ function Enemy({
           isPA
             ? `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy beingDamaged`
             : isEA ||
-                ((enemy.combatStyle === "support" ||
-                  enemy.combatStyle === "boss") &&
+                enemy.combatStyle === "support" ||
+                (enemy.combatStyle === "boss" &&
+                  (enemy.name === "Necromancer" ||
+                    enemy.name === "Centaur Queen" ||
+                    (enemy.name === "Centaur Chieftain" && revenge)) &&
                   isES)
               ? `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy isAttacking`
               : `${enemy.combatStyle !== "boss" ? "enemyChar" : "enemyBossChar"} ${position}Enemy`
@@ -42,8 +46,8 @@ function Enemy({
       >
         <img
           src={enemy.img}
-          height={enemy.name === "Necromancer" ? "192px" : null}
-          width={enemy.name === "Necromancer" ? "192px" : null}
+          height={enemy.combatStyle === "boss" ? "192px" : null}
+          width={enemy.combatStyle === "boss" ? "192px" : null}
           onClick={() =>
             canAct && hp > 0 ? handleTurn(enemyNum, enemy.weakness) : null
           }
@@ -52,7 +56,7 @@ function Enemy({
         />
         <i
           className={
-            position === "second"
+            enemy.combatStyle === "boss"
               ? "fa-solid fa-caret-down boss-caret"
               : "fa-solid fa-caret-down"
           }
@@ -68,7 +72,13 @@ function Enemy({
           </span>{" "} */}{" "}
           / {enemy.hp}
         </span>
-        <section className="enemy-status-section">
+        <section
+          className={
+            enemy.combatStyle === "boss"
+              ? "enemy-status-section boss-status"
+              : "enemy-status-section"
+          }
+        >
           {enemy.combatStyle === "tank" ? (
             <div
               className={

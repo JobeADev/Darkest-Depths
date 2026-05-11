@@ -7,8 +7,16 @@
   }
 }
 
+.enemyBossChar.firstEnemy.beingDamaged {
+  animation: leftShake 0.25s 4 alternate;
+}
+
 .enemyBossChar.secondEnemy.beingDamaged {
   animation: middleEnemyShake 0.25s 4 alternate;
+}
+
+.enemyBossChar.beingDamaged {
+  animation: rightShake 0.25s 4 alternate;
 }
 
 .enemyBossChar {
@@ -24,6 +32,12 @@
 
 .enemyBossChar:hover .damage-preview {
   display: initial;
+}
+
+.bossBlankSpace {
+  opacity: 0;
+  height: 60px;
+  width: 160px;
 }
 
 .bossHP {
@@ -55,6 +69,12 @@
   opacity: 0.7;
   top: -15px;
   margin-left: 5px;
+}
+
+.enemy-status-section.boss-status {
+  display: flex;
+  position: absolute;
+  bottom: -70px;
 }
 
 .being-summoned {

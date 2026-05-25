@@ -7,6 +7,44 @@
   }
 }
 
+@keyframes bossGrow {
+  0% {
+  }
+  20% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(1);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bossFadeOut {
+  0% {
+    opacity: 1;
+  }
+  15% {
+    opacity: 0.2;
+  }
+  30% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.2;
+  }
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .enemyBossChar.firstEnemy.beingDamaged {
   animation: leftShake 0.25s 4 alternate;
 }
@@ -19,6 +57,10 @@
   animation: rightShake 0.25s 4 alternate;
 }
 
+.boss-dead {
+  animation: bossFadeOut 2.2s 1.1s 1 forwards;
+}
+
 .enemyBossChar {
   display: flex;
   position: relative;
@@ -28,6 +70,8 @@
   width: 192px;
   cursor: pointer;
   margin-top: -62px;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .enemyBossChar:hover .damage-preview {
@@ -80,6 +124,10 @@
 .being-summoned {
   opacity: 0;
   animation: fadeIn 1s 0.5s 1 forwards;
+}
+
+.boss-appearance {
+  animation: bossGrow 1.2s 1 forwards;
 }
 
 .being-summoned .enemyChar {

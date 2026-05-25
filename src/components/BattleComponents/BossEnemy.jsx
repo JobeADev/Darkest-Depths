@@ -24,9 +24,16 @@ function Enemy({
         hp > 0 &&
         (position === "first" || position === "third")
           ? `${position} being-summoned`
-          : hp > 0
-            ? position
-            : `${position} dead`
+          : boss === "Centaur Royalty" &&
+              turnCount === 0 &&
+              hp > 0 &&
+              (position === "first" || position === "third")
+            ? `${position} boss-appearance`
+            : hp > 0
+              ? position
+              : enemy.combatStyle === "boss"
+                ? `${position} boss-dead`
+                : `${position} dead`
       }
     >
       <div

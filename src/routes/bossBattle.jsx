@@ -15,13 +15,18 @@ export const Route = createFileRoute("/bossBattle")({
 
 function BossBattle() {
   const navigate = useNavigate();
+  const { prevEnemies } = Route.useSearch();
   const [character, setCharacter] = useContext(CharacterContext);
   const [equipment, setEquipment] = useContext(EquipmentContext);
   const [currentInventory, setCurrentInventory] = useState([...character[2]]);
   const [isLoading, setIsLoading] = useState(true);
   const [turnCount, setTurnCount] = useState(0);
   const [hoveredEnemy, setHoveredEnemy] = useState({});
-  const [enemiesArray] = useState(BossEnemiesList[0]);
+  const [enemiesArray] = useState(
+    !prevEnemies
+      ? BossEnemiesList[Math.floor(Math.random() * BossEnemiesList.length)]
+      : prevEnemies,
+  );
   const [isPlayersTurn, setIsPlayersTurn] = useState(true);
   const [canAct, setCanAct] = useState(true);
   const [isPlayerAttacking, setIsPlayerAttacking] = useState([
@@ -40,6 +45,7 @@ function BossBattle() {
   const [playerRegen, setPlayerRegen] = useState(0);
   const [poisonDamage, setPoisonDamage] = useState(0);
   const [bleedDamage, setBleedDamage] = useState(0);
+  const hasRevenge = useRef(false);
   const enemyTurnOrder = useRef(null);
   const enemyBuffedDamage = useRef([0, 0, 0]);
   const goldDropped = useRef(0);
@@ -50,30 +56,12 @@ function BossBattle() {
   const [infoToggle, setInfoToggle] = useState(
     character[0].equipmentInfoToggle,
   );
+  const centaurRevengeAmount = 4;
   const tankFailPercent = 30; // this represents 70% to fail, 30% chance for success
   const bleedFailPercent = 30; // this represents 70% to fail, 30% chance for success
 
   useEffect(() => {
-    const turnOrder = [
-      {
-        speed: enemiesArray[0].speed,
-        index: 0,
-      },
-      {
-        speed: enemiesArray[1].speed,
-        index: 1,
-      },
-      {
-        speed: enemiesArray[2].speed,
-        index: 2,
-      },
-    ].sort((a, b) => b.speed - a.speed);
-    enemyTurnOrder.current = [
-      turnOrder[0].index,
-      turnOrder[1].index,
-      turnOrder[2].index,
-    ];
-    if (enemiesArray === BossEnemiesList[0]) {
+    if (enemiesArray[0].bossArrayName === "Necromancer") {
       setIsPlayersTurn(false);
       setCanAct(false);
       setEnemyHP([enemiesArray[0].hp, enemiesArray[1].hp, enemiesArray[2].hp]);
@@ -87,6 +75,54 @@ function BossBattle() {
         setCanAct(true);
       }, 1300);
     }
+    if (enemiesArray[0].bossArrayName === "Centaur Royalty") {
+      setIsPlayersTurn(false);
+      setCanAct(false);
+      setEnemyHP([enemiesArray[0].hp, enemyHP[1], enemyHP[2]]);
+      setTimeout(() => {
+        setEnemyHP([enemiesArray[0].hp, enemyHP[1], enemiesArray[2].hp]);
+      }, 720);
+      setTimeout(() => {
+        setTurnCount(1);
+        setIsPlayersTurn(true);
+        setCanAct(true);
+      }, 1700);
+    }
+    const turnOrder =
+      enemiesArray.length < 3
+        ? [
+            {
+              speed: enemiesArray[0].speed,
+              index: 0,
+            },
+            {
+              speed: enemiesArray[1].speed,
+              index: 1,
+            },
+            {
+              speed: 0,
+              index: 2,
+            },
+          ].sort((a, b) => b.speed - a.speed)
+        : [
+            {
+              speed: enemiesArray[0].speed,
+              index: 0,
+            },
+            {
+              speed: enemiesArray[1].speed,
+              index: 1,
+            },
+            {
+              speed: enemiesArray[2].speed,
+              index: 2,
+            },
+          ].sort((a, b) => b.speed - a.speed);
+    enemyTurnOrder.current = [
+      turnOrder[0].index,
+      turnOrder[1].index,
+      turnOrder[2].index,
+    ];
     setIsLoading(false);
   }, []);
 
@@ -155,7 +191,11 @@ function BossBattle() {
           index: enemyTurnOrder.current[0],
           hp:
             enemyCurrentHP[enemyTurnOrder.current[0]] +
-            enemiesArray[enemyTurnOrder.current[2]].heal,
+              enemiesArray[enemyTurnOrder.current[2]].heal <=
+            enemiesArray[enemyTurnOrder.current[0]].hp
+              ? enemyCurrentHP[enemyTurnOrder.current[0]] +
+                enemiesArray[enemyTurnOrder.current[2]].heal
+              : enemiesArray[enemyTurnOrder.current[0]].hp,
         },
         {
           index: enemyTurnOrder.current[1],
@@ -181,7 +221,11 @@ function BossBattle() {
           index: enemyTurnOrder.current[1],
           hp:
             enemyCurrentHP[enemyTurnOrder.current[1]] +
-            enemiesArray[enemyTurnOrder.current[2]].heal,
+              enemiesArray[enemyTurnOrder.current[2]].heal <=
+            enemiesArray[enemyTurnOrder.current[1]].hp
+              ? enemyCurrentHP[enemyTurnOrder.current[1]] +
+                enemiesArray[enemyTurnOrder.current[2]].heal
+              : enemiesArray[enemyTurnOrder.current[1]].hp,
         },
         {
           index: enemyTurnOrder.current[2],
@@ -245,24 +289,41 @@ function BossBattle() {
   };
 
   const handleBossBuffing = (enemyCurrentHP) => {
-    if (enemyCurrentHP[0] === 0) {
-      enemyBuffedDamage.current = [
-        enemyBuffedDamage.current[0],
-        enemyBuffedDamage.current[1],
-        enemyBuffedDamage.current[2] + enemiesArray[1].buff,
-      ];
-    } else if (enemyCurrentHP[2] === 0) {
-      enemyBuffedDamage.current = [
-        enemyBuffedDamage.current[0] + enemiesArray[1].buff,
-        enemyBuffedDamage.current[1],
-        enemyBuffedDamage.current[2],
-      ];
-    } else {
-      enemyBuffedDamage.current = [
-        enemyBuffedDamage.current[0] + enemiesArray[1].buff,
-        enemyBuffedDamage.current[1],
-        enemyBuffedDamage.current[2] + enemiesArray[1].buff,
-      ];
+    if (enemiesArray[0].bossArrayName === "Necromancer") {
+      if (enemyCurrentHP[0] === 0) {
+        enemyBuffedDamage.current = [
+          enemyBuffedDamage.current[0],
+          enemyBuffedDamage.current[1],
+          enemyBuffedDamage.current[2] + enemiesArray[1].buff,
+        ];
+      } else if (enemyCurrentHP[2] === 0) {
+        enemyBuffedDamage.current = [
+          enemyBuffedDamage.current[0] + enemiesArray[1].buff,
+          enemyBuffedDamage.current[1],
+          enemyBuffedDamage.current[2],
+        ];
+      } else {
+        enemyBuffedDamage.current = [
+          enemyBuffedDamage.current[0] + enemiesArray[1].buff,
+          enemyBuffedDamage.current[1],
+          enemyBuffedDamage.current[2] + enemiesArray[1].buff,
+        ];
+      }
+    }
+    if (enemiesArray[0].bossArrayName === "Centaur Royalty") {
+      if (enemyCurrentHP[0] === 0) {
+        enemyBuffedDamage.current = [
+          enemyBuffedDamage.current[0],
+          enemyBuffedDamage.current[1],
+          enemyBuffedDamage.current[2] + enemiesArray[2].buff,
+        ];
+      } else {
+        enemyBuffedDamage.current = [
+          enemyBuffedDamage.current[0] + enemiesArray[2].buff,
+          enemyBuffedDamage.current[1],
+          enemyBuffedDamage.current[2],
+        ];
+      }
     }
   };
 
@@ -289,6 +350,9 @@ function BossBattle() {
         ];
         goldDropped.current = goldDropped.current + enemiesArray[0].gold;
         enemiesKilled.current = enemiesKilled.current + 1;
+        if (enemiesArray[0].bossArrayName === "Centaur Royalty") {
+          hasRevenge.current = true;
+        }
       }
       setEnemyHP([enemyCurrentHP[0], enemyHP[1], enemyHP[2]]);
     } else if (number === 2 && enemyCurrentHP[1] > 0) {
@@ -325,7 +389,7 @@ function BossBattle() {
             enemyCurrentHP[1] - (equipment[0].damage + strongAgainst),
             enemyCurrentHP[2],
           ];
-        } else if (!isGuarded) {
+        } else {
           enemyCurrentHP = [enemyCurrentHP[0], 0, enemyCurrentHP[2]];
           enemyBuffedDamage.current = [
             enemyBuffedDamage.current[0],
@@ -371,7 +435,7 @@ function BossBattle() {
             enemyCurrentHP[1],
             enemyCurrentHP[2] - (equipment[0].damage + strongAgainst),
           ];
-        } else if (!isGuarded) {
+        } else {
           enemyCurrentHP = [enemyCurrentHP[0], enemyCurrentHP[1], 0];
           enemyBuffedDamage.current = [
             enemyBuffedDamage.current[0],
@@ -380,6 +444,9 @@ function BossBattle() {
           ];
           goldDropped.current = goldDropped.current + enemiesArray[2].gold;
           enemiesKilled.current = enemiesKilled.current + 1;
+          if (enemiesArray[0].bossArrayName === "Centaur Royalty") {
+            hasRevenge.current = true;
+          }
         }
         setEnemyHP([enemyHP[0], enemyHP[1], enemyCurrentHP[2]]);
       }
@@ -397,6 +464,14 @@ function BossBattle() {
     let notFirst = false;
     let notSecond = false;
     let hasDied = false;
+    let hasCentaurDied = false;
+
+    if (
+      (enemyCurrentHP[0] <= 0 && !hasRevenge.current) ||
+      (enemyCurrentHP[2] <= 0 && !hasRevenge.current)
+    ) {
+      hasCentaurDied = true;
+    }
 
     if (
       enemyCurrentHP[0] > 0 &&
@@ -411,7 +486,7 @@ function BossBattle() {
             enemiesArray[enemyTurnOrder.current[0]].combatStyle === "tank" ||
             (enemiesArray[enemyTurnOrder.current[0]].combatStyle === "boss" &&
               turnCount % 4 !== 0 &&
-              enemiesArray[1].name === "Necromancer")
+              enemiesArray[0].bossArrayName === "Necromancer")
           ) {
             setEnemyAttacking(enemyTurnOrder.current[0]);
             playerCurrentHP =
@@ -450,7 +525,10 @@ function BossBattle() {
           } else if (
             enemiesArray[enemyTurnOrder.current[0]].combatStyle === "boss"
           ) {
-            if (turnCount % 4 === 0 && enemiesArray[1].name === "Necromancer") {
+            if (
+              turnCount % 4 === 0 &&
+              enemiesArray[0].bossArrayName === "Necromancer"
+            ) {
               setEnemyAttacking(enemyTurnOrder.current[0]);
               handleBossBuffing(enemyCurrentHP);
               setPoisonDamage(2);
@@ -486,7 +564,7 @@ function BossBattle() {
               enemiesArray[enemyTurnOrder.current[1]].combatStyle === "tank" ||
               (enemiesArray[enemyTurnOrder.current[1]].combatStyle === "boss" &&
                 turnCount % 4 !== 0 &&
-                enemiesArray[1].name === "Necromancer")
+                enemiesArray[0].bossArrayName === "Necromancer")
             ) {
               setEnemyAttacking(enemyTurnOrder.current[1]);
               playerCurrentHP =
@@ -528,7 +606,7 @@ function BossBattle() {
             ) {
               if (
                 turnCount % 4 === 0 &&
-                enemiesArray[1].name === "Necromancer"
+                enemiesArray[0].bossArrayName === "Necromancer"
               ) {
                 setEnemyAttacking(enemyTurnOrder.current[1]);
                 handleBossBuffing(enemyCurrentHP);
@@ -562,6 +640,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -574,7 +655,7 @@ function BossBattle() {
               enemiesArray[enemyTurnOrder.current[2]].combatStyle === "tank" ||
               (enemiesArray[enemyTurnOrder.current[2]].combatStyle === "boss" &&
                 turnCount % 4 !== 0 &&
-                enemiesArray[1].name === "Necromancer")
+                enemiesArray[0].bossArrayName === "Necromancer")
             ) {
               setEnemyAttacking(enemyTurnOrder.current[2]);
               playerCurrentHP =
@@ -654,7 +735,10 @@ function BossBattle() {
           } else if (
             enemiesArray[enemyTurnOrder.current[2]].combatStyle === "boss"
           ) {
-            if (turnCount % 4 === 0 && enemiesArray[1].name === "Necromancer") {
+            if (
+              turnCount % 4 === 0 &&
+              enemiesArray[0].bossArrayName === "Necromancer"
+            ) {
               setEnemyAttacking(enemyTurnOrder.current[2]);
               handleBossBuffing(enemyCurrentHP);
               setPoisonDamage(2);
@@ -701,6 +785,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -711,6 +798,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -731,8 +821,7 @@ function BossBattle() {
             enemiesArray[first].combatStyle === "attacker" ||
             enemiesArray[first].combatStyle === "tank" ||
             (enemiesArray[first].combatStyle === "boss" &&
-              turnCount % 4 !== 0 &&
-              enemiesArray[1].name === "Necromancer")
+              enemiesArray[first].name === "Centaur Chieftain")
           ) {
             setEnemyAttacking(first);
             playerCurrentHP =
@@ -768,7 +857,10 @@ function BossBattle() {
               );
             }
           } else if (enemiesArray[first].combatStyle === "boss") {
-            if (turnCount % 4 === 0 && enemiesArray[1].name === "Necromancer") {
+            if (
+              turnCount % 4 === 0 &&
+              enemiesArray[0].bossArrayName === "Necromancer"
+            ) {
               setEnemyAttacking(first);
               handleBossBuffing(enemyCurrentHP);
               setPoisonDamage(2);
@@ -800,7 +892,11 @@ function BossBattle() {
               enemiesArray[second].combatStyle === "tank" ||
               (enemiesArray[second].combatStyle === "boss" &&
                 turnCount % 4 !== 0 &&
-                enemiesArray[1].name === "Necromancer")
+                enemiesArray[0].bossArrayName === "Necromancer") ||
+              (enemiesArray[second].combatStyle === "boss" &&
+                turnCount % 3 !== 0 &&
+                enemiesArray[second].name === "Centaur Queen" &&
+                enemyCurrentHP[first] >= enemiesArray[first].hp)
             ) {
               setEnemyAttacking(second);
               playerCurrentHP =
@@ -836,12 +932,21 @@ function BossBattle() {
                       enemyBuffedDamage.current[second]),
                 );
               }
-            } else if (enemiesArray[second].combatStyle === "support") {
+            } else if (
+              enemiesArray[second].combatStyle === "support" ||
+              (enemiesArray[second].combatStyle === "boss" &&
+                turnCount % 3 !== 0 &&
+                enemiesArray[second].name === "Centaur Queen")
+            ) {
               if (enemyCurrentHP[first] < enemiesArray[first].hp) {
                 const sortedArrayOfEnemyHP = [
                   {
                     index: first,
-                    hp: enemyCurrentHP[first] + enemiesArray[second].heal,
+                    hp:
+                      enemyCurrentHP[first] + enemiesArray[second].heal <=
+                      enemiesArray[first].hp
+                        ? enemyCurrentHP[first] + enemiesArray[second].heal
+                        : enemiesArray[first].hp,
                   },
                   {
                     index: second,
@@ -854,7 +959,7 @@ function BossBattle() {
                   sortedArrayOfEnemyHP[1].hp,
                   sortedArrayOfEnemyHP[2].hp,
                 ]);
-              } else {
+              } else if (enemiesArray[second].combatStyle === "support") {
                 const sortedArrayOfEnemyBuffs = [
                   {
                     index: first,
@@ -878,11 +983,18 @@ function BossBattle() {
             } else if (enemiesArray[second].combatStyle === "boss") {
               if (
                 turnCount % 4 === 0 &&
-                enemiesArray[1].name === "Necromancer"
+                enemiesArray[0].bossArrayName === "Necromancer"
               ) {
                 setEnemyAttacking(second);
                 handleBossBuffing(enemyCurrentHP);
                 setPoisonDamage(2);
+              }
+              if (
+                turnCount % 3 === 0 &&
+                enemiesArray[second].name === "Centaur Queen"
+              ) {
+                setIsEnemySupporting(true);
+                handleBossBuffing(enemyCurrentHP);
               }
             }
           }
@@ -922,6 +1034,9 @@ function BossBattle() {
             hasDied = true;
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -932,6 +1047,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0 && !hasDied) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -955,7 +1073,14 @@ function BossBattle() {
               enemyCurrentHP[living] >= enemiesArray[living].hp) ||
             (enemiesArray[living].combatStyle === "boss" &&
               turnCount % 4 !== 0 &&
-              enemiesArray[1].name === "Necromancer")
+              enemiesArray[0].bossArrayName === "Necromancer") ||
+            (enemiesArray[living].combatStyle === "boss" &&
+              enemiesArray[living].name === "Centaur Chieftain" &&
+              !hasRevenge.current) ||
+            (enemiesArray[living].combatStyle === "boss" &&
+              turnCount % 3 !== 0 &&
+              enemiesArray[living].name === "Centaur Queen" &&
+              !hasRevenge.current)
           ) {
             setEnemyAttacking(living);
             playerCurrentHP =
@@ -992,7 +1117,11 @@ function BossBattle() {
             const sortedArrayOfEnemyHP = [
               {
                 index: living,
-                hp: enemyCurrentHP[living] + enemiesArray[living].heal,
+                hp:
+                  enemyCurrentHP[living] + enemiesArray[living].heal <=
+                  enemiesArray[living].hp
+                    ? enemyCurrentHP[living] + enemiesArray[living].heal
+                    : enemiesArray[living].hp,
               },
               {
                 index: firstDead,
@@ -1007,13 +1136,42 @@ function BossBattle() {
             ]);
             setIsEnemySupporting(true);
           } else if (enemiesArray[living].combatStyle === "boss") {
-            if (turnCount % 4 === 0 && enemiesArray[1].name === "Necromancer") {
+            if (
+              turnCount % 4 === 0 &&
+              enemiesArray[0].bossArrayName === "Necromancer"
+            ) {
               setEnemyHP([
                 enemiesArray[0].hp,
                 enemyCurrentHP[1],
                 enemiesArray[2].hp,
               ]);
               setIsEnemySupporting(true);
+            }
+            if (
+              turnCount % 3 === 0 &&
+              enemiesArray[living].name === "Centaur Queen" &&
+              !hasRevenge.current
+            ) {
+              setIsEnemySupporting(true);
+              handleBossBuffing(enemyCurrentHP);
+            }
+            if (
+              enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+              hasRevenge.current
+            ) {
+              if (enemiesArray[living].name === "Centaur Chieftain") {
+                setIsEnemySupporting(true);
+                enemyBuffedDamage.current = [
+                  enemyBuffedDamage.current[0] + centaurRevengeAmount,
+                  enemyBuffedDamage.current[1],
+                  enemyBuffedDamage.current[2],
+                ];
+              }
+              if (enemiesArray[living].name === "Centaur Queen") {
+                setEnemyAttacking(living);
+                setPoisonDamage(centaurRevengeAmount);
+              }
+              hasRevenge.current = false;
             }
           }
         }
@@ -1054,6 +1212,9 @@ function BossBattle() {
           if (playerCurrentHP <= 0) {
             navigate({
               to: "/gameOverScreen",
+              search: {
+                enemies: enemiesArray,
+              },
               mask: {
                 to: "/game_over",
               },
@@ -1065,9 +1226,12 @@ function BossBattle() {
 
   const handleBattleOver = (enemyCurrentHP) => {
     if (
-      (enemyCurrentHP[0] <= 0 && enemiesArray[0].combatStyle === "boss") ||
-      (enemyCurrentHP[1] <= 0 && enemiesArray[1].combatStyle === "boss") ||
-      (enemyCurrentHP[2] <= 0 && enemiesArray[2].combatStyle === "boss")
+      (enemyCurrentHP[1] <= 0 &&
+        enemiesArray[0].bossArrayName === "Necromancer") ||
+      (enemyCurrentHP[0] <= 0 &&
+        enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+        enemyCurrentHP[2] <= 0 &&
+        enemiesArray[0].bossArrayName === "Centaur Royalty")
     ) {
       setTimeout(() => {
         setCharacter([
@@ -1091,19 +1255,20 @@ function BossBattle() {
           search: {
             gold: goldDropped.current,
             killCount: enemiesKilled.current,
-            bossName: enemiesArray[1].name,
+            bossName: enemiesArray[0].bossArrayName,
           },
           mask: {
             to: "/boss",
           },
         });
-      }, 1700);
+      }, 3000);
     }
   };
 
   function handleTurn(number, enemyWeakness) {
     let timer;
-    // let playerTurnTiming = 900;
+    let playerTurnTiming1 = 900;
+    let playerTurnTiming2 = 3900;
     let playerCurrentHP = playerHP;
     let enemyCurrentHP = enemyHP;
     let canRevive = false;
@@ -1114,6 +1279,7 @@ function BossBattle() {
     if (equipment[1].name) {
       if (equipment[1].name === "Revival Pendant") {
         canRevive = true;
+        console.log(canRevive);
       }
     }
 
@@ -1124,13 +1290,29 @@ function BossBattle() {
         enemyWeakness,
       );
     }
-    if (poisonDamage > 0 && enemyCurrentHP[1] > 0) {
+    if (
+      poisonDamage > 0 &&
+      ((enemyCurrentHP[1] > 0 &&
+        enemiesArray[0].bossArrayName === "Necromancer") ||
+        (enemyCurrentHP[2] > 0 &&
+          enemiesArray[0].bossArrayName === "Centaur Royalty"))
+    ) {
       playerCurrentHP = playerCurrentHP - poisonDamage;
-      // playerTurnTiming = 1100;
+      playerTurnTiming1 = 1100;
+      playerTurnTiming2 = 4100;
     }
-    if (bleedDamage > 0 && enemyCurrentHP[1] > 0) {
+    if (
+      bleedDamage > 0 &&
+      ((enemyCurrentHP[1] > 0 &&
+        enemiesArray[0].bossArrayName === "Necromancer") ||
+        (enemyCurrentHP[0] > 0 &&
+          enemiesArray[0].bossArrayName === "Centaur Royalty") ||
+        (enemyCurrentHP[2] > 0 &&
+          enemiesArray[0].bossArrayName === "Centaur Royalty"))
+    ) {
       playerCurrentHP = playerCurrentHP - bleedDamage * 2;
-      // playerTurnTiming = 1100;
+      playerTurnTiming1 = 1100;
+      playerTurnTiming2 = 4100;
     }
     timer = setTimeout(() => {
       resetEnemyAttacked();
@@ -1140,7 +1322,16 @@ function BossBattle() {
       ) {
         setHoveredEnemy({});
       }
-      if (poisonDamage > 0 && enemyCurrentHP[1] > 0 && !runAwayCheck) {
+      if (
+        poisonDamage > 0 &&
+        ((enemyCurrentHP[1] > 0 &&
+          enemiesArray[0].bossArrayName === "Necromancer") ||
+          (enemyCurrentHP[0] > 0 &&
+            enemiesArray[0].bossArrayName === "Centaur Royalty") ||
+          (enemyCurrentHP[2] > 0 &&
+            enemiesArray[0].bossArrayName === "Centaur Royalty")) &&
+        !runAwayCheck
+      ) {
         if (playerCurrentHP > 0) {
           setPlayerHP((previousHP) => previousHP - poisonDamage);
           setIsPlayersTurn(false);
@@ -1165,7 +1356,12 @@ function BossBattle() {
       }
       if (
         bleedDamage > 0 &&
-        enemyCurrentHP[1] > 0 &&
+        ((enemyCurrentHP[1] > 0 &&
+          enemiesArray[0].bossArrayName === "Necromancer") ||
+          (enemyCurrentHP[0] > 0 &&
+            enemiesArray[0].bossArrayName === "Centaur Royalty") ||
+          (enemyCurrentHP[2] > 0 &&
+            enemiesArray[0].bossArrayName === "Centaur Royalty")) &&
         !runAwayCheck
         // (enemyCurrentHP[0] > 0 ||
         //   enemyCurrentHP[1] > 0 ||
@@ -1194,30 +1390,65 @@ function BossBattle() {
         setBleedDamage(0);
       }
       if (
+        enemiesArray[0].bossArrayName === "Necromancer" &&
         poisonDamage === 0 &&
         bleedDamage === 0 &&
         enemyCurrentHP[1] > 0 &&
         !runAwayCheck
       )
         setIsPlayersTurn(false);
-      if (!runAwayCheck && enemyCurrentHP[1] > 0)
+      if (
+        (enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+          poisonDamage === 0 &&
+          bleedDamage === 0 &&
+          enemyCurrentHP[0] > 0 &&
+          !runAwayCheck) ||
+        (enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+          poisonDamage === 0 &&
+          bleedDamage === 0 &&
+          enemyCurrentHP[2] > 0 &&
+          !runAwayCheck)
+      )
+        setIsPlayersTurn(false);
+      if (
+        enemiesArray[0].bossArrayName === "Necromancer" &&
+        !runAwayCheck &&
+        enemyCurrentHP[1] > 0
+      )
         handleEnemyAttacks(
           playerCurrentHP,
           enemyCurrentHP,
           canRevive,
           hasRevived,
         );
-    }, 900);
+      if (
+        (enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+          !runAwayCheck &&
+          enemyCurrentHP[0] > 0) ||
+        (enemiesArray[0].bossArrayName === "Centaur Royalty" &&
+          !runAwayCheck &&
+          enemyCurrentHP[2] > 0)
+      )
+        handleEnemyAttacks(
+          playerCurrentHP,
+          enemyCurrentHP,
+          canRevive,
+          hasRevived,
+        );
+    }, playerTurnTiming1);
     setTimeout(() => {
       if (playerCurrentHP <= 0) {
         navigate({
           to: "/gameOverScreen",
+          search: {
+            enemies: enemiesArray,
+          },
           mask: {
             to: "/game_over",
           },
         });
       }
-    }, 3900);
+    }, playerTurnTiming2);
 
     handleBattleOver(enemyCurrentHP, runAwayCheck);
 
@@ -1316,10 +1547,10 @@ function BossBattle() {
           />
           <section className="enemies">
             {EnemyPositions.map((pos, index) =>
-              enemiesArray[index] ? (
+              enemiesArray[index] && enemiesArray[index].name !== "Blank" ? (
                 <BossEnemy
                   key={index}
-                  boss={enemiesArray[1].name}
+                  boss={enemiesArray[0].bossArrayName}
                   turnCount={turnCount}
                   enemy={enemiesArray[index]}
                   hp={enemyHP[index]}
@@ -1331,12 +1562,13 @@ function BossBattle() {
                   isPA={isPlayerAttacking[index]}
                   isEA={isEnemyAttacking[index]}
                   isES={isEnemySupporting}
+                  revenge={enemyHP[2] <= 0}
                   canAct={canAct}
                   handleTurn={handleTurn}
                   handleRightClick={handleRightClick}
                 />
               ) : (
-                <div className={`${pos} blankSpace`} key={index} />
+                <div className={`${pos} bossBlankSpace`} key={index} />
               ),
             )}
           </section>
@@ -1464,7 +1696,15 @@ function BossBattle() {
                       i.type === "Accessory" &&
                       i.name !== equipment[1].name
                     ? `inventory-item ${i.class}`
-                    : `inventory-item disabled ${i.class}`
+                    : canAct &&
+                        i.type === "Consumable" &&
+                        i.name !== "Regen Potion"
+                      ? `inventory-item ${i.class}`
+                      : canAct &&
+                          i.name === "Regen Potion" &&
+                          playerHP !== character[0].maxHp
+                        ? `inventory-item ${i.class}`
+                        : `inventory-item disabled ${i.class}`
               }
               onClick={() => {
                 (i.type === "Weapon" && i.name === equipment[0].name) ||
@@ -1549,7 +1789,9 @@ function BossBattle() {
                   <span className="enemy-info-text">
                     {hoveredEnemy.skill2}
                   </span>{" "}
-                  <span className="enemy-info-text-space">-</span>
+                  {hoveredEnemy.buff ? (
+                    <span className="enemy-info-text-space">-</span>
+                  ) : null}
                 </>
               ) : null}{" "}
               {hoveredEnemy.heal ? (
@@ -1558,11 +1800,17 @@ function BossBattle() {
                   <span className="enemy-info-text">
                     {hoveredEnemy.heal}
                   </span>{" "}
-                  <span className="enemy-info-text-space">-</span>
+                  {hoveredEnemy.buff ? (
+                    <span className="enemy-info-text-space">-</span>
+                  ) : null}
                 </>
               ) : null}{" "}
-              damage buff:{" "}
-              <span className="enemy-info-text">{hoveredEnemy.buff}</span>
+              {hoveredEnemy.buff ? (
+                <>
+                  <span>damage buff:</span>{" "}
+                  <span className="enemy-info-text">{hoveredEnemy.buff}</span>
+                </>
+              ) : null}
             </p>
           )}
         </div>

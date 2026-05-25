@@ -37,7 +37,7 @@ function GameOverScreen() {
       <section className="game_over_links">
         <h2 className="start-link-container">
           <Link
-            to={character[1] % 15 === 0 ? "/bossBattle" : "/normalBattle"}
+            to={character[1] >= 15 ? "/bossBattle" : "/normalBattle"}
             search={{ prevEnemies: enemies }}
             mask={{
               to: `/floor_${character[1]}`,

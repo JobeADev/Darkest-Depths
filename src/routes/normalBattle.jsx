@@ -1157,7 +1157,11 @@ function NormalBattle() {
             const sortedArrayOfEnemyHP = [
               {
                 index: living,
-                hp: enemyCurrentHP[living] + enemiesArray[living].heal,
+                hp:
+                  enemyCurrentHP[living] + enemiesArray[living].heal <=
+                  enemiesArray[living].hp
+                    ? enemyCurrentHP[living] + enemiesArray[living].heal
+                    : enemiesArray[living].hp,
               },
               {
                 index: firstDead,

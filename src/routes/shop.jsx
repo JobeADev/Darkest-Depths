@@ -105,7 +105,11 @@ function Shop() {
                 ? "healing-section"
                 : "healing-section disabled"
             }
-            onClick={currentHp < currentMaxHp ? handleHeal : null}
+            onClick={
+              currentHp < currentMaxHp && currentGold >= healingCost
+                ? handleHeal
+                : null
+            }
           >
             <p className="healing-section-text">
               heal - <span className="shop-gold-bag-small gold-bag" />

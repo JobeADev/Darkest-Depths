@@ -95,6 +95,10 @@
   background-image: url(../../Icons/Fire-Icon-16x16.png);
 }
 
+.electric {
+  background-image: url(../../Icons/Electric-Icon-16x16.png);
+}
+
 .attacker {
   background-image: url(../../Icons/Attacker-Icon-16x16.png);
 }
